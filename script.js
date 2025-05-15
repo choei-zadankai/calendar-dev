@@ -188,6 +188,12 @@ function renderCalendar(searchTerm = '', mode = 'title') {
     number.textContent = day;
     cell.appendChild(number);
 
+    console.log(
+  '----',
+  '日付:', year, month + 1, day,
+  'inRangeで通ったイベント:', events.filter(ev => inRange(ev, year, month, day)).map(ev => ev.title)
+);
+
     const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
     const rokuyoLabel = document.createElement('div');
