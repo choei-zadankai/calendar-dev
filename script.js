@@ -149,11 +149,7 @@ function inRange(event, y, m, d) {
   end.setDate(end.getDate() - 1);
   return target >= start && target <= end;
 }
-  }
-
-  end.setDate(end.getDate() - 1);
-  return target >= start && target <= end;
-}
+  
 
 function renderCalendar(searchTerm = '', mode = 'title') {
   calendarGrid.innerHTML = '';
