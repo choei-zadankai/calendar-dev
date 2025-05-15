@@ -205,11 +205,18 @@ function renderCalendar(searchTerm = '', mode = 'title') {
       cell.appendChild(holidayLabel);
     }
 
-    const eventList = events.filter(ev => {
-      const target = mode === 'category' ? ev.category.toLowerCase() : ev.title.toLowerCase();
-      return activeCategories.includes(ev.category) &&
-             inRange(ev, year, month, day) &&
-             target.includes(searchTerm);
+  const eventList = events.filter(ev => {
+  const target = mode === 'category' ? ev.category.toLowerCase() : ev.title.toLowerCase();
+  const inCat = activeCategories.includes(ev.category);
+  const inDate = inRange(ev, year, month, day);
+  const match = target.includes(searchTerm);
+
+  // デバッグログ出力
+  if (inCat && inDate && match) {
+    console.log('表示対象イベント:', ev.title, '→', dateStr);
+  }
+
+  return inCat && inDate && match;
     });
 
     eventList.forEach(ev => {
