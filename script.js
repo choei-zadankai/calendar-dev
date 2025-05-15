@@ -130,26 +130,25 @@ function getRokuyo(date) {
 
 function inRange(event, y, m, d) {
   const target = new Date(y, m, d);
-  const isEveryYear = event.everyYear === true;
 
   let start, end;
 
-  if (isEveryYear && typeof event.date === 'string' && event.date.length === 5) {
-    // MM-DD 形式を YYYY-MM-DD にして扱う
+  if (event.everyYear && typeof event.date === 'string' && event.date.length === 5) {
     const [mm, dd] = event.date.split('-').map(Number);
     start = new Date(y, mm - 1, dd);
     end = new Date(start);
   } else {
-    start = new Date(event.start || event.date);
+    start = event.start ? new Date(event.start) : new Date(event.date);
     end = event.end ? new Date(event.end) : new Date(start);
   }
 
-  if (isNaN(start.getTime()) || isNaN(end.getTime())) return false;
+  if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+    console.warn('Invalid start/end:', event.title, event.date);
+    return false;
+  }
 
   end.setDate(end.getDate() - 1);
   return target >= start && target <= end;
-
-  console.log('inRangeチェック:', event.title, '毎年？', event.everyYear, '日付=', event.date);
 }
   
 
