@@ -207,19 +207,22 @@ function renderCalendar(searchTerm = '', mode = 'title') {
       cell.appendChild(holidayLabel);
     }
 
+ try {
   const eventList = events.filter(ev => {
-  const target = mode === 'category' ? ev.category.toLowerCase() : ev.title.toLowerCase();
-  const inCat = activeCategories.includes(ev.category);
-  const inDate = inRange(ev, year, month, day);
-  const match = target.includes(searchTerm);
+    const target = mode === 'category' ? ev.category.toLowerCase() : ev.title.toLowerCase();
+    const inCat = activeCategories.includes(ev.category);
+    const inDate = inRange(ev, year, month, day);
+    const match = target.includes(searchTerm);
 
-  // デバッグログ出力
-  if (inCat && inDate && match) {
-    console.log('表示対象イベント:', ev.title, '→', dateStr);
-  }
+    if (inCat && inDate && match) {
+      console.log('表示対象イベント:', ev.title);
+    }
 
-  return inCat && inDate && match;
-    });
+    return inCat && inDate && match;
+  });
+} catch (e) {
+  console.error('イベント処理中にエラー:', e);
+}
 
     eventList.forEach(ev => {
       const e = document.createElement('div');
