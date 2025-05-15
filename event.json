@@ -1,0 +1,50 @@
+[
+  {
+    "title": "SGIの日",
+    "category": "anniversary",
+    "date": "1-26",
+    "everyYear": true,
+    "detail": "1975年 各国の創価学会が連合し、国際的機構として創価学会インターナショナル(SGI)が設立された日"
+  },
+
+  {
+    "title": "広宣流布記念の日",
+    "category": "anniversary",
+    "date": "3-16",
+    "everyYear": true,
+    "detail": "1958年 第2代会長・戸田城聖先生から、後継の青年に創価学会の使命が託された日"
+  },
+
+  {
+    "title": "創価学会の日",
+    "category": "anniversary",
+    "date": "5-3",
+    "everyYear": true,
+    "detail": "1951年、戸田城聖先生が創価学会第2代会長に就任し、1960年、池田大作先生が第3代会長に就任した日"
+  },
+
+  {
+    "title": "原水爆禁止宣言",
+    "category": "anniversary",
+    "date": "9-8",
+    "everyYear": true,
+    "detail": "1957年、創価学会第2代会長・戸田城聖先生が核兵器を禁止する重要な宣言を発表し、創価学会の核兵器廃絶運動の原点となった日"
+  },
+
+ {
+    "title": "世界平和の日",
+    "category": "anniversary",
+    "date": "10-2",
+    "everyYear": true,
+    "detail": "1960年、第3代会長に就任したばかりの池田大作先生が、創価学会の国際的な発展を目指し、初の海外指導に出発した日"
+  },
+
+  {
+    "title": "創価学会創立記念日",
+    "category": "anniversary",
+    "date": "11-18",
+    "everyYear": true,
+    "detail": "1930年、創価学会が設立された日"
+  }
+]
+

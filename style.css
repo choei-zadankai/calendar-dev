@@ -1,0 +1,198 @@
+body {
+  font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+  background-color: #fdfaf4;
+  color: #222;
+  padding: 1rem;
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+h1, h2 {
+  text-align: center;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.calendar-header button {
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+}
+
+.calendar-header button:hover {
+  background-color: #45a049;
+}
+
+label {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.4rem;
+  color: #222;
+}
+
+input[type="text"],
+select {
+  font-size: 1.1rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #999;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+}
+
+button {
+  font-size: 1.1rem;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  background-color: #4caf50;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.calendar {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.3rem;
+}
+
+.day-name {
+  font-weight: bold;
+  text-align: center;
+  background-color: #eee;
+  padding: 0.5rem;
+}
+
+.day-cell {
+  min-height: 100px;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 0.4rem;
+  font-size: 1rem;
+  position: relative;
+}
+
+.day-number {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.day-name:nth-child(7n + 1), /* 日曜日 */
+.day-cell:nth-child(7n + 1) .day-number {
+  color: red;
+}
+
+.day-name:nth-child(7n), /* 土曜日 */
+.day-cell:nth-child(7n) .day-number {
+  color: blue;
+}
+
+.event {
+  margin-top: 0.3rem;
+  background-color: #e0f7fa;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.holiday-label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-top: 0.2rem;
+}
+
+.holiday-normal {
+  color: red;
+}
+
+.holiday-substitute {
+  background-color: pink ;
+}
+
+.holiday-citizens {
+  background-color: yellow ;
+}
+
+.highlight {
+  background-color: #fff8e1;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.3);
+  display: none;
+  z-index: 9;
+}
+
+.event-modal {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  padding: 2rem;
+  border: 2px solid #333;
+  border-radius: 10px;
+  z-index: 10;
+  display: none;
+  max-width: 400px;
+  width: 90%;
+}
+
+.event-modal h2 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.event-modal p {
+  font-size: 1rem;
+}
+
+.close-btn {
+  margin-top: 1rem;
+  background-color: #888;
+}
+
+.close-btn:hover {
+  background-color: #555;
+}
+
+fieldset {
+  margin-bottom: 2rem;
+  border: none;
+}
