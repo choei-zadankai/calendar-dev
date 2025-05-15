@@ -207,8 +207,9 @@ function renderCalendar(searchTerm = '', mode = 'title') {
       cell.appendChild(holidayLabel);
     }
 
- try {
-  const eventList = events.filter(ev => {
+let eventList;
+try {
+  eventList = events.filter(ev => {
     const target = mode === 'category' ? ev.category.toLowerCase() : ev.title.toLowerCase();
     const inCat = activeCategories.includes(ev.category);
     const inDate = inRange(ev, year, month, day);
