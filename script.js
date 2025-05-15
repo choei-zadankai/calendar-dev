@@ -148,6 +148,8 @@ function inRange(event, y, m, d) {
 
   end.setDate(end.getDate() - 1);
   return target >= start && target <= end;
+
+  console.log('inRangeチェック:', event.title, '毎年？', event.everyYear, '日付=', event.date);
 }
   
 
