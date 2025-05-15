@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(res => res.json())
     .then(eventData => {
       events = eventData;
+      console.log(events);
       activeCategories = [
         'anniversary', 'birthday', 'memorial', 'visiting', 'formation',
         'holiday', 'zadankai', 'meeting', 'event', 'support', 'campaign'
