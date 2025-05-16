@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('準備中');
       };
     }
+  }
     renderCalendar();
 };
 
