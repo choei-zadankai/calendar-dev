@@ -149,7 +149,7 @@ function inRange(event, y, m, d) {
   }
 
   if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-    console.warn('Invalid start/end:', event.title, event.date);
+    console.warn('⚠️ Invalid Date in event:', event.title, event.date);
     return false;
   }
 
@@ -225,6 +225,14 @@ try {
     const inCat = activeCategories.includes(ev.category);
     const inDate = inRange(ev, year, month, day);
     const match = target.includes(searchTerm);
+
+    console.log('🔍 チェック中: ', {
+  title: ev.title,
+  date: ev.date,
+  inCat,
+  inDate,
+  match
+});
 
     if (inCat && inDate && match) {
       console.log('☑表示対象イベント:', ev.title,'→',dateStr);
