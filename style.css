@@ -183,6 +183,16 @@ button:hover {
   font-size: 1rem;
 }
 
+#category-mode {
+  display: block;
+  margin: 1rem auto;
+  padding: 0.4rem 1rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
 #modal-title {
   font-size: 1.5rem;
   font-weight: bold;
@@ -192,6 +202,19 @@ button:hover {
 #modal-detail {
   font-size: 1.2rem;
   line-height: 1.6;
+}
+
+#modal-close {
+  display: block;
+  margin: 1.5rem auto 0 auto; /* 上1.5rem・左右中央・下0 */
+  padding: 0.5rem 1.5rem;
+  font-size: 1.1rem;
+  background-color: #666;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  cursor: pointer;
 }
 
 .close-btn {
