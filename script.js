@@ -11,7 +11,7 @@ const nextBtn = document.querySelector('.calendar-header button:last-child');
 //const searchInput = document.getElementById('search-input');
 //const searchMode = document.getElementById('search-mode');
 //const searchBtn = document.getElementById('search-btn');
-const clearBtn = document.getElementById('clear-btn');
+//const clearBtn = document.getElementById('clear-btn');
 const modal = document.getElementById('event-modal');
 const modalTitle = document.getElementById('modal-title');
 const modalDetail = document.getElementById('modal-detail');
@@ -51,8 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
   const searchBtn = document.getElementById('search-btn');
-  //searchBtn.onclick = () => {
-    //renderCalendar(searchInput.value.trim().toLowerCase(), searchMode.value);
+  searchBtn.onclick = () => {
+    renderCalendar();
 };
 
   categorySelect.addEventListener('change', () => {
@@ -67,11 +67,11 @@ document.addEventListener('DOMContentLoaded', () => {
         'holiday', 'zadankai', 'meeting', 'event', 'support', 'campaign'
       ];
     }
-    renderCalendar(searchInput.value.trim().toLowerCase(), searchMode.value);
+    renderCalendar();
   });
   
-　searchBtn.onclick = () => {
-  renderCalendar(searchInput.value.trim().toLowerCase(), searchMode.value);
+　//searchBtn.onclick = () => {
+  //renderCalendar(searchInput.value.trim().toLowerCase(), searchMode.value);
 　　　};
 });
 
@@ -291,13 +291,13 @@ try {
 prevBtn.onclick = () => {
   currentDate.setMonth(currentDate.getMonth() - 1);
   holidays = getDynamicHolidays(currentDate.getFullYear());
-  renderCalendar(searchInput.value.trim().toLowerCase(), searchMode.value);
+  renderCalendar();
 };
 
 nextBtn.onclick = () => {
   currentDate.setMonth(currentDate.getMonth() + 1);
   holidays = getDynamicHolidays(currentDate.getFullYear());
-  renderCalendar(searchInput.value.trim().toLowerCase(), searchMode.value);
+  renderCalendar();
 };
 
 modalClose.onclick = () => {
