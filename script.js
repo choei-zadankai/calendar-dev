@@ -63,6 +63,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     renderCalendar(searchInput.value.trim().toLowerCase(), searchMode.value);
   });
+  const searchBtn = document.getElementById('search-btn');
+searchBtn.onclick = () => {
+  renderCalendar(searchInput.value.trim().toLowerCase(), searchMode.value);
+　　　};
 });
 
 function getDynamicHolidays(year) {
