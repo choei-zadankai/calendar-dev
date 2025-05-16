@@ -38,7 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if(DEBUG_MODE){
       console.log('evevts.json ☑読み込み成功:',events);
       }
-      activeCategories = [];
+      activeCategories = ['anniversary', 'birthday', 'memorial', 'visiting', 'formation',
+        'holiday', 'zadankai', 'meeting', 'event', 'support', 'campaign'];
       renderCalendar();
     })
     .catch(err => {
