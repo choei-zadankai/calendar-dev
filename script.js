@@ -252,6 +252,8 @@ try {
 } catch (e) {
   if(DEBUG_MODE){
   console.error('イベント処理中にエラー✖:', e);
+  } else {
+    alert('何らかのエラーが発生しました。ページを再読み込みしてください');
   }
 }
 
