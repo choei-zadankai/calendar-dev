@@ -1,7 +1,7 @@
 
 const DEBUG_MODE = true;  //完成したら「false」にする
 if(DEBUG_MODE){
-console.log('scrips.js ロード完了☑');
+console.log('script.js ロード完了☑');
 }
 
 const calendarGrid = document.querySelector('.calendar-grid');
