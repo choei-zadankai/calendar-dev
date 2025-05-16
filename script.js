@@ -1,3 +1,5 @@
+console.log('scrips.js ロード完了☑');
+
 const calendarGrid = document.querySelector('.calendar-grid');
 const headerMonth = document.querySelector('.calendar-header span');
 const prevBtn = document.querySelector('.calendar-header button:first-child');
@@ -19,18 +21,22 @@ let holidays = [];
 let activeCategories = [];
 
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOMContentLoaded:☑');
   holidays = getDynamicHolidays(currentDate.getFullYear());
 
-  fetch('events.json')
+  fetch('events.json?v=1.0.1')
     .then(res => res.json())
     .then(eventData => {
       events = eventData;
-      console.log('イベント配列 =',events);
+      console.log('evevts.json ☑読み込み成功:',events);
       activeCategories = [
         'anniversary', 'birthday', 'memorial', 'visiting', 'formation',
         'holiday', 'zadankai', 'meeting', 'event', 'support', 'campaign'
       ];
       renderCalendar();
+    })
+    .catch(err => {
+      console.error('evevts.json ✖読み込み失敗:',err);
     });
 
   categorySelect.addEventListener('change', () => {
@@ -221,13 +227,12 @@ try {
     const match = target.includes(searchTerm);
 
     if (inCat && inDate && match) {
-      console.log('表示対象イベント:', ev.title);
+      console.log('☑表示対象イベント:', ev.title,'→',dateStr);
+      eventList.push(ev);
     }
-
-    return inCat && inDate && match;
   });
 } catch (e) {
-  console.error('イベント処理中にエラー:', e);
+  console.error('イベント処理中にエラー✖:', e);
 }
 
     eventList.forEach(ev => {
