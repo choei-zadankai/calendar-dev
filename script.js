@@ -227,17 +227,14 @@ try {
     const match = target.includes(searchTerm);
 
     console.log('🔍 チェック中: ', {
-  title: ev.title,
-  date: ev.date,
-  inCat,
-  inDate,
-  match
-});
+      title: ev.title,
+      date: ev.date,
+      inCat,
+      inDate,
+      match
+    });
 
-    if (inCat && inDate && match) {
-      console.log('☑表示対象イベント:', ev.title,'→',dateStr);
-      eventList.push(ev);
-    }
+    return inCat && inDate && match;
   });
 } catch (e) {
   console.error('イベント処理中にエラー✖:', e);
