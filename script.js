@@ -181,6 +181,9 @@ function inRange(event, y, m, d) {
 
 function renderCalendar(searchTerm = '', mode = 'title') {
   calendarGrid.innerHTML = '';
+  if (DEBUG_MODE) {
+  console.log('現在のカテゴリ設定:', activeCategories);
+}
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
