@@ -49,6 +49,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const searchBtn = document.getElementById('search-btn');
   searchBtn.onclick = () => {
+    if (searchBtn) {
+      searchBtn.onclick = () => {
+        alert('準備中');
+      };
+    }
     renderCalendar();
 };
 
