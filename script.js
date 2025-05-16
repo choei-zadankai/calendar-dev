@@ -57,7 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   categorySelect.addEventListener('change', () => {
     const mode = categorySelect.value;
-    if (mode === 'anniversary') {
+     if (mode === 'none') {
+      activeCategories = [];
+    } else if {(mode === 'anniversary') {
       activeCategories = ['anniversary'];
     } else if (mode === 'active') {
       activeCategories = ['zadankai', 'meeting', 'event', 'support', 'campaign'];
