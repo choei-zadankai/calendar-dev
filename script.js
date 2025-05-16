@@ -1,3 +1,9 @@
+
+const DEBUG_MODE = true;  //完成したら「false」にする
+if(DEBUG_MODE){
+console.log('scrips.js ロード完了☑');
+}
+
 const calendarGrid = document.querySelector('.calendar-grid');
 const headerMonth = document.querySelector('.calendar-header span');
 const prevBtn = document.querySelector('.calendar-header button:first-child');
@@ -19,17 +25,28 @@ let holidays = [];
 let activeCategories = [];
 
 document.addEventListener('DOMContentLoaded', () => {
+  if(DEBUG_MODE){
+  console.log('DOMContentLoaded:☑');
+  }
   holidays = getDynamicHolidays(currentDate.getFullYear());
 
-  fetch('events.json')
+  fetch('events.json?v=1.0.1')
     .then(res => res.json())
     .then(eventData => {
       events = eventData;
+      if(DEBUG_MODE){
+      console.log('evevts.json ☑読み込み成功:',events);
+      }
       activeCategories = [
         'anniversary', 'birthday', 'memorial', 'visiting', 'formation',
         'holiday', 'zadankai', 'meeting', 'event', 'support', 'campaign'
       ];
       renderCalendar();
+    })
+    .catch(err => {
+      if(DEBUG_MODE){
+      console.error('evevts.json ✖読み込み失敗:',err);
+      }
     });
 
   categorySelect.addEventListener('change', () => {
@@ -129,25 +146,28 @@ function getRokuyo(date) {
 
 function inRange(event, y, m, d) {
   const target = new Date(y, m, d);
-  const isEveryYear = event.everyYear === true;
 
   let start, end;
 
-  if (isEveryYear && typeof event.date === 'string' && event.date.length === 5) {
-    // MM-DD 形式を YYYY-MM-DD にして扱う
+  if (event.everyYear && typeof event.date === 'string') {
     const [mm, dd] = event.date.split('-').map(Number);
     start = new Date(y, mm - 1, dd);
     end = new Date(start);
   } else {
-    start = new Date(event.start || event.date);
+    start = event.start ? new Date(event.start) : new Date(event.date);
     end = event.end ? new Date(event.end) : new Date(start);
   }
 
-  if (isNaN(start.getTime()) || isNaN(end.getTime())) return false;
+  if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+    if(DEBUG_MODE){
+    console.warn('⚠️ Invalid Date in event:', event.title, event.date);
+    }
+    return false;
+  }
 
-  end.setDate(end.getDate() - 1);
   return target >= start && target <= end;
 }
+  
 
 function renderCalendar(searchTerm = '', mode = 'title') {
   calendarGrid.innerHTML = '';
@@ -184,6 +204,12 @@ function renderCalendar(searchTerm = '', mode = 'title') {
     number.textContent = day;
     cell.appendChild(number);
 
+ if(DEBUG_MODE){
+    console.log( '----','日付:', year, month + 1, day,
+                'inRangeで通ったイベント:', events.filter(ev => inRange(ev, year, month, day)).map(ev => ev.title)
+      );
+ }
+
     const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
     const rokuyoLabel = document.createElement('div');
@@ -203,12 +229,33 @@ function renderCalendar(searchTerm = '', mode = 'title') {
       cell.appendChild(holidayLabel);
     }
 
-    const eventList = events.filter(ev => {
-      const target = mode === 'category' ? ev.category.toLowerCase() : ev.title.toLowerCase();
-      return activeCategories.includes(ev.category) &&
-             inRange(ev, year, month, day) &&
-             target.includes(searchTerm);
+let eventList;
+try {
+  eventList = events.filter(ev => {
+    const target = mode === 'category' ? ev.category.toLowerCase() : ev.title.toLowerCase();
+    const inCat = activeCategories.includes(ev.category);
+    const inDate = inRange(ev, year, month, day);
+    const match = target.includes(searchTerm);
+    
+ if(DEBUG_MODE){
+    console.log('🔍 チェック中: ', {
+      title: ev.title,
+      date: ev.date,
+      inCat,
+      inDate,
+      match
     });
+ }
+
+    return inCat && inDate && match;
+  });
+} catch (e) {
+  if(DEBUG_MODE){
+  console.error('イベント処理中にエラー✖:', e);
+  } else {
+    alert('何らかのエラーが発生しました。ページを再読み込みしてください');
+  }
+}
 
     eventList.forEach(ev => {
       const e = document.createElement('div');
