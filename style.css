@@ -183,6 +183,17 @@ button:hover {
   font-size: 1rem;
 }
 
+.category-controls {
+  text-align: center;
+  margin: 1rem auto;
+}
+
+.category-controls label {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+
 #category-mode {
   display: block;
   margin: 1rem auto;
