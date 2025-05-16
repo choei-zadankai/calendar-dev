@@ -8,9 +8,9 @@ const calendarGrid = document.querySelector('.calendar-grid');
 const headerMonth = document.querySelector('.calendar-header span');
 const prevBtn = document.querySelector('.calendar-header button:first-child');
 const nextBtn = document.querySelector('.calendar-header button:last-child');
-const searchInput = document.getElementById('search-input');
-const searchMode = document.getElementById('search-mode');
-const searchBtn = document.getElementById('search-btn');
+//const searchInput = document.getElementById('search-input');
+//const searchMode = document.getElementById('search-mode');
+//const searchBtn = document.getElementById('search-btn');
 const clearBtn = document.getElementById('clear-btn');
 const modal = document.getElementById('event-modal');
 const modalTitle = document.getElementById('modal-title');
@@ -51,8 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
   const searchBtn = document.getElementById('search-btn');
-  searchBtn.onclick = () => {
-  renderCalendar(searchInput.value.trim().toLowerCase(), searchMode.value);
+  //searchBtn.onclick = () => {
+    //renderCalendar(searchInput.value.trim().toLowerCase(), searchMode.value);
 };
 
   categorySelect.addEventListener('change', () => {
