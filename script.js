@@ -153,7 +153,6 @@ function inRange(event, y, m, d) {
     return false;
   }
 
-  end.setDate(end.getDate() - 1);
   return target >= start && target <= end;
 }
   
