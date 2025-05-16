@@ -52,22 +52,28 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCalendar();
 };
 
-  categorySelect.addEventListener('change', () => {
-    const mode = categorySelect.value;
-     if (mode === 'none') {
+ categorySelect.addEventListener('change', () => {
+  const mode = categorySelect.value;
+  if (DEBUG_MODE) console.log('カテゴリ選択:', mode);
+
+  switch (mode) {
+    case 'none':
       activeCategories = [];
-    } else if (mode === 'anniversary') {
+      break;
+    case 'anniversary':
       activeCategories = ['anniversary'];
-    } else if (mode === 'active') {
+      break;
+    case 'active':
       activeCategories = ['zadankai', 'meeting', 'event', 'support', 'campaign'];
-    } else {
-      activeCategories = [
-        'anniversary', 'birthday', 'memorial', 'visiting', 'formation',
-        'holiday', 'zadankai', 'meeting', 'event', 'support', 'campaign'
-      ];
-    }
-    renderCalendar();
-  });
+      break;
+    case 'all':
+      activeCategories = ['anniversary', 'birthday', 'memorial', 'visiting', 'formation',
+        'holiday', 'zadankai', 'meeting', 'event', 'support', 'campaign'];
+      break;
+  }
+
+  renderCalendar();
+});
   
 　//searchBtn.onclick = () => {
   //renderCalendar(searchInput.value.trim().toLowerCase(), searchMode.value);
