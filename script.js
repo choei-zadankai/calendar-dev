@@ -139,7 +139,7 @@ function inRange(event, y, m, d) {
 
   let start, end;
 
-  if (event.everyYear && typeof event.date === 'string' && event.date.length === 5) {
+  if (event.everyYear && typeof event.date === 'string') {
     const [mm, dd] = event.date.split('-').map(Number);
     start = new Date(y, mm - 1, dd);
     end = new Date(start);
@@ -155,7 +155,6 @@ function inRange(event, y, m, d) {
 
   end.setDate(end.getDate() - 1);
   return target >= start && target <= end;
-}
   
 
 function renderCalendar(searchTerm = '', mode = 'title') {
