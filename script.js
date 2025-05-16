@@ -48,14 +48,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
   const searchBtn = document.getElementById('search-btn');
+  if (searchBtn) {
   searchBtn.onclick = () => {
-    if (searchBtn) {
-      searchBtn.onclick = () => {
-        alert('準備中');
-      };
-    }
+    alert('準備中');
     renderCalendar();
-};
+  };
+}
 
  categorySelect.addEventListener('change', () => {
   const mode = categorySelect.value;
