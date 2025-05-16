@@ -1,4 +1,3 @@
-
 const DEBUG_MODE = true;  //完成したら「false」にする
 if(DEBUG_MODE){
 console.log('script.js ロード完了☑');
@@ -8,9 +7,10 @@ const calendarGrid = document.querySelector('.calendar-grid');
 const headerMonth = document.querySelector('.calendar-header span');
 const prevBtn = document.querySelector('.calendar-header button:first-child');
 const nextBtn = document.querySelector('.calendar-header button:last-child');
-const searchInput = document.getElementById('search-input');
-const searchMode = document.getElementById('search-mode');
-const clearBtn = document.getElementById('clear-btn');
+//const searchInput = document.getElementById('search-input');
+//const searchMode = document.getElementById('search-mode');
+//const searchBtn = document.getElementById('search-btn');
+//const clearBtn = document.getElementById('clear-btn');
 const modal = document.getElementById('event-modal');
 const modalTitle = document.getElementById('modal-title');
 const modalDetail = document.getElementById('modal-detail');
@@ -37,10 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if(DEBUG_MODE){
       console.log('evevts.json ☑読み込み成功:',events);
       }
-      activeCategories = [
-        'anniversary', 'birthday', 'memorial', 'visiting', 'formation',
-        'holiday', 'zadankai', 'meeting', 'event', 'support', 'campaign'
-      ];
+      activeCategories = [];
       renderCalendar();
     })
     .catch(err => {
@@ -49,21 +46,40 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-  categorySelect.addEventListener('change', () => {
-    const mode = categorySelect.value;
-    if (mode === 'anniversary') {
-      activeCategories = ['anniversary'];
-    } else if (mode === 'active') {
-      activeCategories = ['zadankai', 'meeting', 'event', 'support', 'campaign'];
-    } else {
-      activeCategories = [
-        'anniversary', 'birthday', 'memorial', 'visiting', 'formation',
-        'holiday', 'zadankai', 'meeting', 'event', 'support', 'campaign'
-      ];
-    }
-    renderCalendar(searchInput.value.trim().toLowerCase(), searchMode.value);
-  });
+  const searchBtn = document.getElementById('search-btn');
+  if (searchBtn) {
+  searchBtn.onclick = () => {
+    alert('準備中');
+    renderCalendar();
+  };
+}
 
+ categorySelect.addEventListener('change', () => {
+  const mode = categorySelect.value;
+  if (DEBUG_MODE) console.log('カテゴリ選択:', mode);
+
+  switch (mode) {
+    case 'none':
+      activeCategories = [];
+      break;
+    case 'anniversary':
+      activeCategories = ['anniversary'];
+      break;
+    case 'active':
+      activeCategories = ['zadankai', 'meeting', 'event', 'support', 'campaign'];
+      break;
+    case 'all':
+      activeCategories = ['anniversary', 'birthday', 'memorial', 'visiting', 'formation',
+        'holiday', 'zadankai', 'meeting', 'event', 'support', 'campaign'];
+      break;
+  }
+
+  renderCalendar();
+});
+  
+　//searchBtn.onclick = () => {
+  //renderCalendar(searchInput.value.trim().toLowerCase(), searchMode.value);
+　　//　};
 });
 
 function getDynamicHolidays(year) {
@@ -172,6 +188,9 @@ function inRange(event, y, m, d) {
 
 function renderCalendar(searchTerm = '', mode = 'title') {
   calendarGrid.innerHTML = '';
+  if (DEBUG_MODE) {
+  console.log('現在のカテゴリ設定:', activeCategories);
+}
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
@@ -234,7 +253,7 @@ let eventList;
 try {
   eventList = events.filter(ev => {
     const target = mode === 'category' ? ev.category.toLowerCase() : ev.title.toLowerCase();
-    const inCat = activeCategories.includes(ev.category);
+    const inCat = activeCategories.length === 0 ? false : activeCategories.includes(ev.category);
     const inDate = inRange(ev, year, month, day);
     const match = target.includes(searchTerm);
     
@@ -282,13 +301,13 @@ try {
 prevBtn.onclick = () => {
   currentDate.setMonth(currentDate.getMonth() - 1);
   holidays = getDynamicHolidays(currentDate.getFullYear());
-  renderCalendar(searchInput.value.trim().toLowerCase(), searchMode.value);
+  renderCalendar();
 };
 
 nextBtn.onclick = () => {
   currentDate.setMonth(currentDate.getMonth() + 1);
   holidays = getDynamicHolidays(currentDate.getFullYear());
-  renderCalendar(searchInput.value.trim().toLowerCase(), searchMode.value);
+  renderCalendar();
 };
 
 modalClose.onclick = () => {
