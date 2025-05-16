@@ -38,8 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if(DEBUG_MODE){
       console.log('evevts.json ☑読み込み成功:',events);
       }
-      activeCategories = ['anniversary', 'birthday', 'memorial', 'visiting', 'formation',
-        'holiday', 'zadankai', 'meeting', 'event', 'support', 'campaign'];
+      activeCategories = [];
       renderCalendar();
     })
     .catch(err => {
@@ -246,7 +245,7 @@ let eventList;
 try {
   eventList = events.filter(ev => {
     const target = mode === 'category' ? ev.category.toLowerCase() : ev.title.toLowerCase();
-    const inCat = activeCategories.includes(ev.category);
+    const inCat = activeCategories.length === 0 ? false : activeCategories.includes(ev.category);
     const inDate = inRange(ev, year, month, day);
     const match = target.includes(searchTerm);
     
