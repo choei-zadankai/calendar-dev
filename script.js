@@ -49,6 +49,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+  const searchBtn = document.getElementById('search-btn');
+  searchBtn.onclick = () => {
+  renderCalendar(searchInput.value.trim().toLowerCase(), searchMode.value);
+};
+
   categorySelect.addEventListener('change', () => {
     const mode = categorySelect.value;
     if (mode === 'anniversary') {
