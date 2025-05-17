@@ -197,6 +197,50 @@ button:hover {
   margin-bottom: 0.3rem;
 }
 
+.category-anniversary {
+  background-color: #FFDDC1;
+}
+
+.category-birthday {
+  background-color: #FFE0E9;
+}
+
+.category-memorial {
+  background-color: #E2E2F9;
+}
+
+.category-visiting {
+  background-color: #D2F0D2;
+}
+
+.category-founding {
+  background-color: #FDF3B0;
+}
+
+.category-holiday {
+  background-color: #F0D9FF;
+}
+
+.category-zadankai {
+  background-color: #B3E5FC;
+}
+
+.category-meeting {
+  background-color: #C5E1A5;
+}
+
+.category-event {
+  background-color: #FFD180;
+}
+
+.category-support {
+  background-color: #FFAB91;
+}
+
+.category-campaign {
+  background-color: #CE93D8;
+}
+
 #category-mode {
   display: block;
   margin: 1rem auto;
