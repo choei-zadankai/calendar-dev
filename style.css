@@ -237,6 +237,26 @@ button:hover {
   background-color: #555;
 }
 
+@media screen and (max-width: 600px) {
+  .calendar-header, .category-controls, .search-controls {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .calendar-grid {
+    grid-template-columns: repeat(7, 1fr);
+    font-size: 0.8rem;
+  }
+
+  #modal-detail {
+    font-size: 1.1rem;
+  }
+
+  .day-cell {
+    padding: 0.5rem;
+  }
+}
+
 fieldset {
   margin-bottom: 2rem;
   border: none;
