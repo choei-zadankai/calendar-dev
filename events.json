@@ -46,5 +46,42 @@
     "everyYear": true,
     "detail": "1930年、創価学会が設立された日"
   }
+
+  {
+    "title": "第3代会長 池田先生 誕生日",
+    "category": "birthday",
+    "date": "01-02",
+    "everyYear": true,
+    "detail": "1928年、東京都大田区にて池田大作先生が出生された日"
+  },
+
+{
+    "title": "第2代会長 戸田先生 誕生日",
+    "category": "birthday",
+    "date": "02-11",
+    "everyYear": true,
+    "detail": "1900年、石川県加賀市にて戸田城聖先生が出生された日"
+  },
+
+
+{
+    "title": "日蓮大聖人 ご聖誕の日",
+    "category": "birthday",
+    "date": "02-16",
+    "everyYear": true,
+    "detail": "1222年、安房国(現在の千葉県鴨川市)にて日蓮大聖人が出生された日"
+  },
+
+
+{
+    "title": "初代会長 牧口先生 誕生日",
+    "category": "birthday",
+    "date": "06-06",
+    "everyYear": true,
+    "detail": "1871年、新潟県柏崎市にて牧口常三郎先生が出生された日"
+  }
+
+
+
 ]
 
