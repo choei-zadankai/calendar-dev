@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
       activeCategories = ['zadankai', 'meeting', 'event', 'support', 'campaign'];
       break;
     case 'all':
-      activeCategories = ['anniversary', 'birthday', 'memorial', 'visiting', 'formation',
+      activeCategories = ['anniversary', 'birthday', 'memorial', 'visiting', 'group',
         'holiday', 'zadankai', 'meeting', 'event', 'support', 'campaign'];
       break;
   }
