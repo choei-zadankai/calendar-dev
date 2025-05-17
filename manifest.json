@@ -3,12 +3,12 @@
   "name": "イベント・記念日付きカレンダー",
   "icons": [
     {
-      "src": "icons/icon-small.png",
+      "src": "icon-small.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icons/icon.png",
+      "src": "icon.png",
       "sizes": "768x768",
       "type": "image/png"
     }
