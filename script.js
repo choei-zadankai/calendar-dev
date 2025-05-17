@@ -1,3 +1,4 @@
+
 const DEBUG_MODE = true;  //完成したら「false」にする
 if(DEBUG_MODE){
 console.log('script.js ロード完了☑');
@@ -296,6 +297,16 @@ try {
 
     calendarGrid.appendChild(cell);
   }
+}
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js')
+    .then(() => {
+      if (DEBUG_MODE) console.log('✅ Service Worker registered');
+    })
+    .catch(err => {
+      if (DEBUG_MODE) console.error('❌ Service Worker registration failed:', err);
+    });
 }
 
 prevBtn.onclick = () => {

@@ -1,0 +1,20 @@
+{
+  "short_name": "カレンダー",
+  "name": "イベント・記念日付きカレンダー",
+  "icons": [
+    {
+      "src": "icon-small.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon.png",
+      "sizes": "768x768",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fdfaf4",
+  "theme_color": "#006600"
+}
