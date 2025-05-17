@@ -10,7 +10,7 @@ event.jsonのカテゴリー
 
    visiting:初訪問を記念する日。
 
-   founding:結成を記念する日。
+   group:部の結成や開催等を記念する日。
 
    holiday:anniversaryより優先度が低い記念日。
 
