@@ -197,6 +197,7 @@ function renderCalendar(searchTerm = '', mode = 'title') {
   const month = currentDate.getMonth();
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const today = new Date();
 
   const monthText = `${year}年 ${month + 1}月`;
   headerMonth.textContent = monthText;
@@ -224,6 +225,11 @@ function renderCalendar(searchTerm = '', mode = 'title') {
     number.className = 'day-number';
     number.textContent = day;
     cell.appendChild(number);
+
+     if (year === today.getFullYear() && month === today.getMonth() && day === today.getDate()) {
+    cell.classList.add('today');
+  }
+
 
  if(DEBUG_MODE){
     console.log( '----','日付:', year, month + 1, day,
