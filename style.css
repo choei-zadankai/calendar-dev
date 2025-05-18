@@ -107,6 +107,12 @@ button:hover {
   font-size: 1.2rem;
 }
 
+.today {
+  background-color: #FFF9C4;
+  border: 2px solid #FBC02D;
+  box-shadow: 0 0 5px #FDD835;
+}
+
 .day-name:nth-child(7n + 1), /* 日曜日 */
 .day-cell:nth-child(7n + 1) .day-number {
   color: red;
