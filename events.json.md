@@ -8,7 +8,7 @@ event.jsonのカテゴリー
 
    memorial:歴史上、重要な人物の命日。
 
-   visiting:初訪問を記念する日。
+   visiting:初訪問、初出席を記念する日。
 
    group:部の結成や開催等を記念する日。
 
