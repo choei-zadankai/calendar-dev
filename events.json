@@ -72,7 +72,6 @@
     "detail": "1222年、安房国(現在の千葉県鴨川市)にて日蓮大聖人が出生された日"
   },
 
-
 {
     "title": "初代会長 牧口先生 誕生日",
     "category": "birthday",
@@ -89,7 +88,6 @@
     "detail": "1958年、当時の日本大学病院にて戸田城聖先生が逝去された日"
   },
 
-
 {
     "title": "日蓮大聖人 ご入滅",
     "category": "memorial",
@@ -97,7 +95,6 @@
     "everyYear": true,
     "detail": "1282年、武州池上(現在の東京都大田区)の地で日蓮大聖人がご入滅された日"
   },
-
 
 
 {
@@ -108,7 +105,6 @@
     "detail": "2023年、東京都新宿区の居宅にて池田大作先生が逝去された日
   },
 
-
 {
     "title": "初代会長 牧口先生 命日",
     "category": "memorial",
@@ -116,6 +112,155 @@
     "everyYear": true,
     "detail": "1944年、巣鴨拘置所の病監にて牧口常三郎先生が逝去された日"
   },
+
+  {
+    "title": "水俣の日",
+    "category": "visiting",
+    "date": "01-24",
+    "everyYear": true,
+    "detail": "1974年、池田大作先生が第1回水俣友の集いに出席された日"
+  },
+
+{
+    "title": "池田先生 中東初訪問",
+    "category": "visiting",
+    "date": "01-29",
+    "everyYear": true,
+    "detail": "1962年、池田大作先生が中東を初めて訪問された日"
+  },
+
+{
+    "title": "沖縄の日",
+    "category": "visiting",
+    "date": "02-08",
+    "everyYear": true,
+    "detail": "1974年、池田大作先生が沖縄広布20周年記念総会に参加された日"
+  },
+
+{
+    "title": "九州の日",
+    "category": "visiting",
+    "date": "03-21",
+    "everyYear": true,
+    "detail": "1973年、池田大作先生が第1回九州青年部総会に出席された日"
+  },
+
+{
+    "title": "関西の日",
+    "category": "visiting",
+    "date": "04-08",
+    "everyYear": true,
+    "detail": "1956年、大阪・堺2支部連合総会が行われた日"
+  },
+
+{
+    "title": "池田先生 中国初訪問",
+    "category": "visiting",
+    "date": "05-30",
+    "everyYear": true,
+    "detail": "1974年、池田大作先生が中日友好協会の招へいを受け、中国を初めて訪問された日"
+  },
+
+{
+    "title": "世界池田華陽会の日",
+    "category": "visiting",
+    "date": "06-04",
+    "everyYear": true,
+    "detail": "2009年、池田大作先生ご夫妻が東京・信濃町の現・創価池田華陽会館を初訪問された日"
+  },
+
+{
+    "title": "東北の日",
+    "category": "visiting",
+    "date": "07-03",
+    "everyYear": true,
+    "detail": "1987年、池田大作先生が出席し、東北最高会議が行われた日"
+  },
+
+{
+    "title": "中部の日",
+    "category": "visiting",
+    "date": "07-27",
+    "everyYear": true,
+    "detail": "1976年、池田大作先生が中部記念幹部会に出席された日"
+  },
+
+{
+    "title": "教育原点の日",
+    "category": "visiting",
+    "date": "08-12",
+    "everyYear": true,
+    "detail": "1975年、池田大作先生が教育部の夏季講習会に出席された日"
+  },
+
+{
+    "title": "関東の日",
+    "category": "visiting",
+    "date": "08-14",
+    "everyYear": true,
+    "detail": "1947年、当時19歳の池田大作先生が、東京・蒲田での座談会に出席し、生涯の師となる戸田城聖先生と出会われた日"
+  },
+
+{
+    "title": "北陸の日",
+    "category": "visiting",
+    "date": "08-26",
+    "everyYear": true,
+    "detail": "1984年、池田大作先生が第1回北陸平和文化祭に出席された日"
+  },
+
+{
+    "title": "池田先生 ソ連初訪問",
+    "category": "visiting",
+    "date": "09-08",
+    "everyYear": true,
+    "detail": "1974年、池田大作先生がソ連を初めて訪問された日"
+  },
+
+{
+    "title": "北海道の日",
+    "category": "visiting",
+    "date": "09-09",
+    "everyYear": true,
+    "detail": "1973年、池田大作先生が第1回北海道青年部総会に出席された日"
+  },
+
+{
+    "title": "池田先生 欧州初訪問",
+    "category": "visiting",
+    "date": "10-05",
+    "everyYear": true,
+    "detail": "1961年、池田大作先生が欧州を初めて訪問された日"
+  },
+
+{
+    "title": "中国・師弟原点の日",
+    "category": "visiting",
+    "date": "10-08",
+    "everyYear": true,
+    "detail": "1956年、池田大作先生が岡山を初めて訪問された日"
+  },
+
+{
+    "title": "「山口開拓指導」開始の日",
+    "category": "visiting",
+    "date": "10-09",
+    "everyYear": true,
+    "detail": "1956年、池田大作先生が戸田城聖先生の命を受け、山口開拓指導が開始された日"
+  },
+
+{
+    "title": "四国の日",
+    "category": "visiting",
+    "date": "11-06",
+    "everyYear": true,
+    "detail": "1987年、池田大作先生が長編詩「青き天地　四国讃歌」を四国の友に贈られた日"
+  },
+
+
+
+
+
 
 
 
