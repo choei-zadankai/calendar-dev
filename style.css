@@ -107,7 +107,7 @@ button:hover {
   font-size: 1.2rem;
 }
 
-.today {
+.day-cell.today {
   background-color: #FFF9C4;
   border: 2px solid #FBC02D;
   box-shadow: 0 0 5px #FDD835;
