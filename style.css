@@ -314,3 +314,47 @@ fieldset {
   margin-bottom: 2rem;
   border: none;
 }
+
+.event.category-anniversary {
+  background-color: #FFDDC1; 
+}
+
+.event.category-birthday {
+  background-color: #FFE0E9; 
+}
+
+.event.category-memorial {
+  background-color: #E2E2F9; 
+}
+
+.event.category-visiting {
+  background-color: #D2F0D2; 
+}
+
+.event.category-group {
+  background-color: #FDF3B0; 
+}
+
+.event.category-holiday {
+  background-color: #F0D9FF; 
+}
+
+.event.category-zadankai {
+  background-color: #B3E5FC; 
+}
+
+.event.category-meeting {
+  background-color: #C5E1A5; 
+}
+
+.event.category-event {
+  background-color: #FFD180; 
+}
+
+.event.category-support {
+  background-color: #FFAB91; 
+}
+
+.event.category-campaign {
+  background-color: #CE93D8; 
+}
