@@ -239,6 +239,30 @@ function renderCalendar(searchTerm = '', mode = 'title') {
 
     const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
+    number.onclick = () => {
+  const thisDate = new Date(year, month, day);
+  const dateStr = `${year}年${month + 1}月${day}日 (${['日','月','火','水','木','金','土'][thisDate.getDay()]})`;
+  modalTitle.textContent = dateStr;
+
+  const todaysEvents = events.filter(ev => {
+    return activeCategories.includes(ev.category) && inRange(ev, year, month, day);
+  });
+
+  if (todaysEvents.length === 0) {
+    modalDetail.innerHTML = '<p>この日に表示するイベントはありません</p>';
+  } else {
+    modalDetail.innerHTML = todaysEvents.map(ev => `
+      <div class="modal-item">
+        <strong class="modal-item-title">${ev.title}</strong>
+        <div class="modal-item-detail">${ev.detail || '詳細なし'}</div>
+      </div>
+    `).join('');
+  }
+
+  modal.style.display = 'block';
+  modalBackdrop.style.display = 'block';
+};
+
     const rokuyoLabel = document.createElement('div');
     rokuyoLabel.textContent = getRokuyo(new Date(year, month, day));
     rokuyoLabel.style.fontSize = '0.8rem';
