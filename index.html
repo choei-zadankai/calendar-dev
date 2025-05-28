@@ -62,12 +62,12 @@ initial-scale=1.0">
     <button class="close-btn" id="modal-close">閉じる</button>
   </div>
 
-  <script src="script.js?v=2.0.0"></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log('Service Worker registered'));
-    }
-  </script>
+ <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js')
+      .then(() => console.log('Service Worker registered ✅'))
+      .catch(err => console.error('SW registration failed ❌:', err));
+  }
+</script>
 </body>
 </html>
