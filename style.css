@@ -108,9 +108,9 @@ button:hover {
 }
 
 .day-cell.today {
-  background-color: #FFF9C4;
-  border: 2px solid #FBC02D;
-  box-shadow: 0 0 5px #FDD835;
+  background-color: #FFF9C4 !important;
+  border: 2px solid #FBC02D !important;
+  box-shadow: 0 0 5px #FDD835 !important;
 }
 
 .day-name:nth-child(7n + 1), /* 日曜日 */
