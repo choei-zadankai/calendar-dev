@@ -301,7 +301,7 @@ button:hover {
 
   .calendar-grid {
     grid-template-columns: repeat(7, 1fr);
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 
   #modal-detail {
@@ -309,8 +309,24 @@ button:hover {
   }
 
   .day-cell {
-    padding: 0.5rem;
+    padding: 0.3rem;
+    max-height: 120px;
+    overflow-y: auto;
+    font-size: 0.75rem;
   }
+
+ .event {
+    font-size: 0.7rem;
+  }
+
+ .day-number {
+    font-size: 0.9rem;
+  }
+
+ .holiday-label {
+    font-size: 0.7rem;
+  }
+  
 }
 
 fieldset {
