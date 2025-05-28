@@ -299,6 +299,12 @@ button:hover {
     align-items: center;
   }
 
+  .calendar-header {
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
   .calendar-grid {
     grid-template-columns: repeat(7, 1fr);
     font-size: 0.7rem;
