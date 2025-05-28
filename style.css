@@ -133,6 +133,9 @@ button:hover {
   border-radius: 4px;
   font-size: 0.95rem;
   cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .holiday-label {
