@@ -377,3 +377,21 @@ fieldset {
 .event.category-campaign {
   background-color: #CE93D8; 
 }
+
+.modal-item {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.modal-item-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: block;
+}
+
+.modal-item-detail {
+  font-size: 1rem;
+  margin-top: 0.3rem;
+  color: #555;
+}
