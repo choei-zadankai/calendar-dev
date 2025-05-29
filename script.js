@@ -288,12 +288,12 @@ function renderCalendar(searchTerm = '', mode = 'title') {
 let eventList;
 try {
   eventList = events.filter(ev => {
-    const target = mode === 'category' ? ev.category.toLowerCase() : ev.title.toLowerCase();
-    const inCat = activeCategories.length === 0 ? false : activeCategories.includes(ev.category);
-    const inDate = inRange(ev, year, month, day);
-    const match = target.includes(searchTerm);
-    
- if(DEBUG_MODE){
+  const target = mode === 'category' ? ev.category.toLowerCase() : ev.title.toLowerCase();
+  const inCat = activeCategories.length === 0 ? false : activeCategories.includes(ev.category);
+  const inDate = inRange(ev, year, month, day);
+  const match = target.includes(searchTerm);
+
+  if (DEBUG_MODE) {
     console.log('🔍 チェック中: ', {
       title: ev.title,
       date: ev.date,
@@ -301,10 +301,10 @@ try {
       inDate,
       match
     });
- }
+  }
 
-    return inCat && inDate && match;
-  });
+  return inDate && match && (activeCategories.length === 0 || inCat);
+});
 } catch (e) {
   if(DEBUG_MODE){
   console.error('イベント処理中にエラー✖:', e);
