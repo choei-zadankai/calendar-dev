@@ -439,3 +439,10 @@ fieldset {
   border-radius: 4px;
   margin-right: 0.5rem;
 }
+
+.legend-icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
