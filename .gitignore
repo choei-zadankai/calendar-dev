@@ -1,5 +1,4 @@
 admin.*
 admin-small.png
 manifest-admin.json
-events-temporary.json
 admin-service-worker.js
