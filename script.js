@@ -240,7 +240,7 @@ function renderCalendar(searchTerm = '', mode = 'title') {
     const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
   if (activeCategories.length > 0) {
-  number.onclick = () => {
+  cell.onclick = () => {
     const thisDate = new Date(year, month, day);
     const dateStr = `${year}年${month + 1}月${day}日 (${['日','月','火','水','木','金','土'][thisDate.getDay()]})`;
     modalTitle.textContent = dateStr;
