@@ -329,6 +329,11 @@ button:hover {
     font-size: 0.7rem;
   }
 
+ .event-modal {
+    max-height: 85vh;
+    padding: 1rem;
+  }
+
  .day-number {
     font-size: 0.9rem;
   }
