@@ -303,7 +303,7 @@ try {
     });
   }
 
-  return inDate && match && (activeCategories.length === 0 || inCat);
+  return inDate && match && inCat;
 });
 } catch (e) {
   if(DEBUG_MODE){
