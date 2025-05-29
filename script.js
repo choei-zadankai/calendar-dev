@@ -1,4 +1,3 @@
-
 const DEBUG_MODE = true;  //完成したら「false」にする
 if(DEBUG_MODE){
 console.log('script.js ロード完了☑');
