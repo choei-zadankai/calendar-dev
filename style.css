@@ -432,6 +432,11 @@ fieldset {
   font-size: 0.95rem;
 }
 
+.category-legend li i {
+  margin-right: 0.4rem;
+  color: #666;
+}
+
 .legend-box {
   width: 20px;
   height: 20px;
