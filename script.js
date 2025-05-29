@@ -167,23 +167,34 @@ function inRange(event, y, m, d) {
 
   let start, end;
 
-  if (event.everyYear && typeof event.date === 'string') {
-    const [mm, dd] = event.date.split('-').map(Number);
-    start = new Date(y, mm - 1, dd);
-    end = new Date(start);
-  } else {
-    start = event.start ? new Date(event.start) : new Date(event.date);
-    end = event.end ? new Date(event.end) : new Date(start);
-  }
+  try {
+    if (event.everyYear && typeof event.date === 'string') {
+      const [mm, dd] = event.date.split('-').map(Number);
+      start = new Date(y, mm - 1, dd);
+      end = new Date(start);
+    } else if (event.date) {
+      const [yyyy, mm, dd] = event.date.split('-').map(Number);
+      start = new Date(yyyy, mm - 1, dd);
+      end = new Date(start);
+    } else {
+      start = new Date(event.start);
+      end = event.end ? new Date(event.end) : new Date(start);
+    }
 
-  if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-    if(DEBUG_MODE){
-    console.warn('⚠️ Invalid Date in event:', event.title, event.date);
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+      if (DEBUG_MODE) {
+        console.warn('⚠️ Invalid Date in event:', event.title, event.date || event.start);
+      }
+      return false;
+    }
+
+    return target >= start && target <= end;
+  } catch (e) {
+    if (DEBUG_MODE) {
+      console.error('inRange error:', e, event);
     }
     return false;
   }
-
-  return target >= start && target <= end;
 }
   
 
