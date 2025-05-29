@@ -253,10 +253,13 @@ function renderCalendar(searchTerm = '', mode = 'title') {
       modalDetail.innerHTML = '<p>この日に表示するイベントはありません</p>';
     } else {
       modalDetail.innerHTML = todaysEvents.map(ev => `
-        <div class="modal-item">
-          <strong class="modal-item-title">${ev.title}</strong>
-          <div class="modal-item-detail">${ev.detail || '詳細なし'}</div>
-        </div>
+     <div class="modal-item">
+   　 <strong class="modal-item-title">${ev.title}</strong>
+   　 <div class="modal-item-detail">${ev.detail || '詳細なし'}</div>
+  　  <span class="modal-category-label category-${ev.category}">
+     　　 ${getCategoryLabel(ev.category)}
+   　 </span>
+　 　 </div>
       `).join('');
     }
 
