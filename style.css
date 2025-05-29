@@ -451,3 +451,12 @@ fieldset {
   vertical-align: middle;
   margin-right: 0.5rem;
 }
+
+.modal-category-label {
+  display: inline-block;
+  margin-top: 0.3rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  color: white;
+}
