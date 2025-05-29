@@ -5,6 +5,7 @@ const FILES_TO_CACHE = [
   './style.css',
   './script.js',
   './events.json',
+  './events-temporary.json',
   './icon.png',
   './icon-small.png'
 ];
