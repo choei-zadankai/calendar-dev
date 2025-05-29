@@ -379,3 +379,29 @@ function getCategoryLabel(cat) {
   };
   return labels[cat] || cat;
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const clearBtn = document.getElementById('clear-cache-btn');
+  const confirmModal = document.getElementById('confirm-modal');
+  const yesBtn = document.getElementById('confirm-yes');
+  const noBtn = document.getElementById('confirm-no');
+
+  if (clearBtn && confirmModal && yesBtn && noBtn) {
+    clearBtn.addEventListener('click', () => {
+      confirmModal.style.display = 'block';
+    });
+
+    yesBtn.addEventListener('click', async () => {
+      if ('caches' in window) {
+        const keys = await caches.keys();
+        await Promise.all(keys.map(key => caches.delete(key)));
+        alert('キャッシュを削除しました。ページをリロードします');
+        location.reload();
+      }
+    });
+
+    noBtn.addEventListener('click', () => {
+      confirmModal.style.display = 'none';
+    });
+  }
+});
