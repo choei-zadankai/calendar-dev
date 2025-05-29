@@ -25,27 +25,32 @@ let holidays = [];
 let activeCategories = [];
 
 document.addEventListener('DOMContentLoaded', () => {
-  if(DEBUG_MODE){
-  console.log('DOMContentLoaded:☑');
+  if (DEBUG_MODE) {
+    console.log('DOMContentLoaded:☑');
   }
+
   holidays = getDynamicHolidays(currentDate.getFullYear());
 
-  fetch('events.json?v=1.0.1')
-    .then(res => res.json())
-    .then(eventData => {
-      events = eventData;
-      if(DEBUG_MODE){
-      console.log('evevts.json ☑読み込み成功:',events);
-      }
-      activeCategories = [];
-      renderCalendar();
-    })
-    .catch(err => {
-      if(DEBUG_MODE){
-      console.error('evevts.json ✖読み込み失敗:',err);
-      }
-    });
+  Promise.all([
+    fetch('events.json?v=1.0.1').then(res => res.json()),
+    fetch('events-temporary.json?v=1.0.1').then(res => res.json())
+  ])
+  .then(([anniversaries, temporaries]) => {
+    events = [...anniversaries, ...temporaries];
 
+    if (DEBUG_MODE) {
+      console.log('events.json ☑ + temporary ☑ 読み込み成功:', events);
+    }
+
+    activeCategories = [];
+    renderCalendar();
+  })
+  .catch(err => {
+    if (DEBUG_MODE) {
+      console.error('イベント読み込み ✖:', err);
+    }
+  });
+});
   const searchBtn = document.getElementById('search-btn');
   if (searchBtn) {
   searchBtn.onclick = () => {
@@ -77,10 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCalendar();
 });
   
-　//searchBtn.onclick = () => {
-  //renderCalendar(searchInput.value.trim().toLowerCase(), searchMode.value);
-　　//　};
-});
 
 function getDynamicHolidays(year) {
   const holidays = [];
