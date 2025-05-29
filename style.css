@@ -473,16 +473,45 @@ fieldset {
   color: black;
 }
 
-#confirm-modal .event-modal {
-  max-width: 90%;
-  width: 300px;
-  background-color: #fff;
-  padding: 2rem;
-  border: 2px solid #333;
-  border-radius: 10px;
-  z-index: 10;
+/* 確認モーダル全体 */
+#confirm-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999; /* モーダルが前面に出るように */
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none; /* 初期は非表示 */
 }
 
+/* モーダル本体 */
+#confirm-modal .event-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* モーダルボタン */
 #confirm-modal button {
-  margin: 1rem 0.5rem 0;
+  margin: 1rem 0.5rem 0 0.5rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+}
+
+#confirm-modal button:hover {
+  background-color: #45a049;
 }
