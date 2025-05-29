@@ -362,3 +362,20 @@ modalClose.onclick = () => {
 };
 
 modalBackdrop.onclick = modalClose;
+
+function getCategoryLabel(cat) {
+  const labels = {
+    anniversary: '重要な記念日',
+    birthday: '誕生日',
+    memorial: '命日',
+    visiting: '訪問日',
+    group: '結成日',
+    holiday: '記念日',
+    zadankai: '座談会',
+    meeting: '協議会',
+    event: 'イベント',
+    support: '支援週間',
+    campaign: 'その他週間'
+  };
+  return labels[cat] || cat;
+}
