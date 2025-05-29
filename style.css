@@ -104,7 +104,9 @@ button:hover {
 
 .day-number {
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+  padding: 0.5rem;
+  display: inline-block;
 }
 
 .day-cell.today {
