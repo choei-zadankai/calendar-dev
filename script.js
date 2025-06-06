@@ -384,8 +384,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const confirmModal = document.getElementById('confirm-modal-backdrop');
   const yesBtn = document.getElementById('confirm-yes');
   const noBtn = document.getElementById('confirm-no');
-  const modalCloseBtn = document.getElementById('modal-close');
-  const modalBackdrop = document.getElementById('modal-backdrop');
 
    if (modalCloseBtn && modalBackdrop) {
     modalCloseBtn.addEventListener('click', closeModal);
@@ -454,3 +452,18 @@ async function forceDeleteCacheAndSW() {
   alert('キャッシュとService Worker削除完了！リロードします');
   location.reload();
 }
+
+window.addEventListener('load', () => {
+  const modalCloseBtn = document.getElementById('modal-close');
+  const modalBackdrop = document.getElementById('modal-backdrop');
+
+  console.log('[DEBUG] modal-close =', modalCloseBtn); // ← これで取れてるか確認！
+
+  if (modalCloseBtn && modalBackdrop) {
+    modalCloseBtn.addEventListener('click', closeModal);
+    modalBackdrop.addEventListener('click', closeModal);
+    console.log('[DEBUG] イベント閉じる登録成功 ✅');
+  } else {
+    console.warn('[DEBUG] modal-close または modal-backdrop が見つからない ❌');
+  }
+});
