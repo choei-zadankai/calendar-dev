@@ -333,6 +333,7 @@ try {
     });
 
 function openModal() {
+  console.log('モーダル開きます');
   scrollY = window.scrollY;
   document.body.style.top = `-${scrollY}px`;
   document.body.classList.add('modal-open');
