@@ -391,26 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (modalBackdrop) {
     modalBackdrop.onclick = closeModal;
   }
-});
 
-function getCategoryLabel(cat) {
-  const labels = {
-    anniversary: '重要な記念日',
-    birthday: '誕生日',
-    memorial: '命日',
-    visiting: '訪問日',
-    group: '結成日',
-    holiday: '記念日',
-    zadankai: '座談会',
-    meeting: '協議会',
-    event: 'イベント',
-    support: '支援週間',
-    campaign: 'その他週間'
-  };
-  return labels[cat] || cat;
-}
-
-document.addEventListener('DOMContentLoaded', () => {
   const clearBtn = document.getElementById('clear-cache-btn');
   const confirmModal = document.getElementById('confirm-modal');
   const yesBtn = document.getElementById('confirm-yes');
@@ -435,3 +416,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+function getCategoryLabel(cat) {
+  const labels = {
+    anniversary: '重要な記念日',
+    birthday: '誕生日',
+    memorial: '命日',
+    visiting: '訪問日',
+    group: '結成日',
+    holiday: '記念日',
+    zadankai: '座談会',
+    meeting: '協議会',
+    event: 'イベント',
+    support: '支援週間',
+    campaign: 'その他週間'
+  };
+  return labels[cat] || cat;
+}
+
+
+ 
