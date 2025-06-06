@@ -19,6 +19,7 @@ let currentDate = new Date();
 let events = [];
 let holidays = [];
 let activeCategories = [];
+let scrollY = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
   if (DEBUG_MODE) {
@@ -270,8 +271,7 @@ function renderCalendar(searchTerm = '', mode = 'title') {
       `).join('');
     }
 
-    modal.style.display = 'block';
-    modalBackdrop.style.display = 'block';
+    openModal();
   };
 }
 
@@ -327,11 +327,26 @@ try {
       e.onclick = () => {
         modalTitle.textContent = ev.title;
         modalDetail.textContent = ev.detail || '詳細情報はありません';
-        modal.style.display = 'block';
-        modalBackdrop.style.display = 'block';
+        openModal();
       };
       cell.appendChild(e);
     });
+
+
+
+function openModal() {
+  scrollY = window.scrollY;
+  document.body.style.top = `-${scrollY}px`;
+  document.body.classList.add('modal-open');
+  document.getElementById("confirm-modal").style.display = "flex";
+}
+
+function closeModal() {
+  document.body.classList.remove('modal-open');
+  document.body.style.top = '';
+  window.scrollTo(0, scrollY);
+  document.getElementById("confirm-modal").style.display = "none";
+}
 
     if (eventList.length > 0 && searchTerm) {
       cell.classList.add('highlight');
@@ -363,10 +378,7 @@ nextBtn.onclick = () => {
   renderCalendar();
 };
 
-modalClose.onclick = () => {
-  modal.style.display = 'none';
-  modalBackdrop.style.display = 'none';
-};
+modalClose.onclick = closeModal;
 
 modalBackdrop.onclick = modalClose;
 
