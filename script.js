@@ -379,26 +379,15 @@ nextBtn.onclick = () => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  const modalClose = document.getElementById('modal-close');
-  const modalBackdrop = document.getElementById('modal-backdrop');
   const clearBtn = document.getElementById('clear-cache-btn');
-  const confirmModal = document.getElementById('confirm-modal');
+  const confirmModal = document.getElementById('confirm-modal-backdrop');
   const yesBtn = document.getElementById('confirm-yes');
   const noBtn = document.getElementById('confirm-no');
-  
-  if (modalClose) {
-    modalClose.onclick = closeModal;
-  } else {
-    console.warn('❗modal-close が見つかりませんでした');
-  }
-
-  if (modalBackdrop) {
-    modalBackdrop.onclick = closeModal;
-  }
 
   if (clearBtn && confirmModal && yesBtn && noBtn) {
     clearBtn.addEventListener('click', () => {
       confirmModal.style.display = 'flex';
+      document.body.classList.add('modal-open');
     });
 
     yesBtn.addEventListener('click', async () => {
@@ -412,9 +401,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     noBtn.addEventListener('click', () => {
       confirmModal.style.display = 'none';
+      document.body.classList.remove('modal-open');
     });
-  } else {
-    console.warn('🚫 confirm-modal関連要素が見つかりませんでした');
   }
 });
 

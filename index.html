@@ -35,13 +35,13 @@
     </div>
   </main>
 
-  <!-- モーダル -->
-  <div class="modal-backdrop" id="modal-backdrop"></div>
-  <div class="event-modal" id="event-modal">
-    <h2 id="modal-title">イベントタイトル</h2>
-    <p id="modal-detail">詳細情報</p>
-    <button class="close-btn" id="modal-close">閉じる</button>
-  </div>
+ <!-- イベントモーダル -->
+<div class="modal-backdrop" id="modal-backdrop"></div>
+<div class="event-modal" id="event-modal">
+  <h2 id="modal-title">イベントタイトル</h2>
+  <p id="modal-detail">詳細情報</p>
+  <button class="close-btn" id="modal-close">閉じる</button>
+</div>
 
   <footer>
     <div class="category-legend">
@@ -61,18 +61,20 @@
       </ul>
     </div>
 
-    <button id="clear-cache-btn" title="キャッシュを削除して最新データを読み込みます">キャッシュクリア</button>
+   <!-- キャッシュクリア確認 -->
+   <button id="clear-cache-btn" title="キャッシュを削除して最新データを読み込みます">キャッシュクリア</button>
+
   </footer>
 
   <!-- キャッシュクリア確認モーダル -->
-  <div id="confirm-modal" class="modal-backdrop" style="display: none;">
-    <div class="event-modal" style="text-align: center;">
-      <h2>キャッシュを削除しますか？</h2>
-      <p>この操作は元に戻せません。</p>
-      <button id="confirm-yes">はい</button>
-      <button id="confirm-no">いいえ</button>
-    </div>
+  <div id="confirm-modal-backdrop" class="confirm-modal-backdrop" style="display: none;">
+  <div class="confirm-modal-content" style="text-align: center;">
+    <h2>キャッシュを削除しますか？</h2>
+    <p>この操作は元に戻せません。</p>
+    <button id="confirm-yes">はい</button>
+    <button id="confirm-no">いいえ</button>
   </div>
+</div>
 
   <!-- Service Worker 登録 -->
   <script>
