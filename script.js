@@ -424,6 +424,8 @@ window.addEventListener('load', () => {
   const yesBtn = document.getElementById('confirm-yes');
   const noBtn = document.getElementById('confirm-no');
 
+  console.log('[DEBUG] clearBtn:', clearBtn); // ★ここでnullかどうか確認！
+
   // イベントモーダル閉じる
   if (modalClose && modalBackdrop) {
     modalClose.addEventListener('click', closeModal);
@@ -433,10 +435,10 @@ window.addEventListener('load', () => {
     console.warn('[DEBUG] イベントモーダル: 要素が見つかりません ❌');
   }
 
-  // キャッシュクリアモーダル処理
+  // キャッシュクリア確認モーダル処理
   if (clearBtn && confirmModal && yesBtn && noBtn) {
     clearBtn.addEventListener('click', () => {
-      console.log('[DEBUG] キャッシュクリアボタン押された');
+      console.log('[DEBUG] キャッシュクリアボタン押された！'); // ✅これが出ればOK！
       confirmModal.style.display = 'block';
       document.body.classList.add('modal-open');
     });
