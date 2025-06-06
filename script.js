@@ -399,7 +399,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (clearBtn && confirmModal && yesBtn && noBtn) {
     clearBtn.addEventListener('click', () => {
-      confirmModal.style.display = 'block';
+      confirmModal.style.display = 'flex';
     });
 
     yesBtn.addEventListener('click', async () => {
