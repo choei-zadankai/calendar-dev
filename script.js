@@ -381,6 +381,10 @@ nextBtn.onclick = () => {
 document.addEventListener('DOMContentLoaded', () => {
   const modalClose = document.getElementById('modal-close');
   const modalBackdrop = document.getElementById('modal-backdrop');
+  const clearBtn = document.getElementById('clear-cache-btn');
+  const confirmModal = document.getElementById('confirm-modal');
+  const yesBtn = document.getElementById('confirm-yes');
+  const noBtn = document.getElementById('confirm-no');
   
   if (modalClose) {
     modalClose.onclick = closeModal;
@@ -391,11 +395,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (modalBackdrop) {
     modalBackdrop.onclick = closeModal;
   }
-
-  const clearBtn = document.getElementById('clear-cache-btn');
-  const confirmModal = document.getElementById('confirm-modal');
-  const yesBtn = document.getElementById('confirm-yes');
-  const noBtn = document.getElementById('confirm-no');
 
   if (clearBtn && confirmModal && yesBtn && noBtn) {
     clearBtn.addEventListener('click', () => {
@@ -414,6 +413,8 @@ document.addEventListener('DOMContentLoaded', () => {
     noBtn.addEventListener('click', () => {
       confirmModal.style.display = 'none';
     });
+  } else {
+    console.warn('🚫 confirm-modal関連要素が見つかりませんでした');
   }
 });
 
