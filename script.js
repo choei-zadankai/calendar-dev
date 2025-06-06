@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalClose = document.getElementById('modal-close');
   const modalBackdrop = document.getElementById('modal-backdrop');
   const clearBtn = document.getElementById('clear-cache-btn');
-  const confirmModal = document.getElementById('confirm-modal');
+  const confirmModal = document.getElementById('confirm-modal-backdrop');
   const yesBtn = document.getElementById('confirm-yes');
   const noBtn = document.getElementById('confirm-no');
 
