@@ -401,28 +401,14 @@ async function forceDeleteCacheAndSW() {
 }
 
 window.addEventListener('load', () => {
-  const modalCloseBtn = document.getElementById('modal-close');
-  const modalBackdrop = document.getElementById('modal-backdrop');
-
-  console.log('[DEBUG] modal-close =', modalCloseBtn); // ← これで取れてるか確認！
-
-  if (modalCloseBtn && modalBackdrop) {
-    modalCloseBtn.addEventListener('click', closeModal);
-    modalBackdrop.addEventListener('click', closeModal);
-    console.log('[DEBUG] イベント閉じる登録成功 ✅');
-  } else {
-    console.warn('[DEBUG] modal-close または modal-backdrop が見つからない ❌');
-  }
-
-window.addEventListener('load', () => {
   const modalClose = document.getElementById('modal-close');
   const modalBackdrop = document.getElementById('modal-backdrop');
   const clearBtn = document.getElementById('clear-cache-btn');
-  const confirmModal = document.getElementById('confirm-modal'); // ← 修正済み
+  const confirmModal = document.getElementById('confirm-modal');
   const yesBtn = document.getElementById('confirm-yes');
   const noBtn = document.getElementById('confirm-no');
 
-  // 🔘 イベントモーダル閉じる処理
+  // イベントモーダル閉じる
   if (modalClose && modalBackdrop) {
     modalClose.addEventListener('click', closeModal);
     modalBackdrop.addEventListener('click', closeModal);
@@ -431,7 +417,7 @@ window.addEventListener('load', () => {
     console.warn('[DEBUG] イベントモーダル: 要素が見つかりません ❌');
   }
 
-  // 🔘 キャッシュクリア確認モーダル処理
+  // キャッシュクリアモーダル処理
   if (clearBtn && confirmModal && yesBtn && noBtn) {
     clearBtn.addEventListener('click', () => {
       console.log('[DEBUG] キャッシュクリアボタン押された');
@@ -456,14 +442,3 @@ window.addEventListener('load', () => {
     console.warn('[DEBUG] キャッシュ確認モーダル: 要素不足 ❌');
   }
 });
-
-function openModal() {
-  scrollY = window.scrollY;
-  document.body.style.top = `-${scrollY}px`;
-  document.body.classList.add('modal-open');
-  modal.style.display = "block"; 
-  modalBackdrop.style.display = "block"; 
-}
-
-});
-
