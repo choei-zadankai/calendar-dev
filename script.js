@@ -385,11 +385,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const noBtn = document.getElementById('confirm-no');
 
   if (clearBtn && confirmModal && yesBtn && noBtn) {
-    clearBtn.addEventListener('click', () => {
-      confirmModal.style.display = 'flex';
-      document.body.classList.add('modal-open');
-    });
-
+    clearBtn.addEventListener('click', async () => {
+    console.log('[DEBUG] キャッシュクリアボタン押された');
+    const keys = await caches.keys();
+    console.log('[DEBUG] キャッシュ一覧:', keys);
+  });
     yesBtn.addEventListener('click', async () => {
       if ('caches' in window) {
         const keys = await caches.keys();
