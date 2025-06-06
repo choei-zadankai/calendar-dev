@@ -1,6 +1,6 @@
-const DEBUG_MODE = true;  //完成したら「false」にする
-if(DEBUG_MODE){
-console.log('script.js ロード完了☑');
+const DEBUG_MODE = true; // 完成したら「false」にする
+if (DEBUG_MODE) {
+  console.log('script.js ロード完了☑');
 }
 
 const calendarGrid = document.querySelector('.calendar-grid');
@@ -21,6 +21,98 @@ let holidays = [];
 let activeCategories = [];
 let scrollY = 0;
 
+document.addEventListener('DOMContentLoaded', () => {
+  if (DEBUG_MODE) {
+    console.log('DOMContentLoaded:☑');
+  }
+
+  holidays = getDynamicHolidays(currentDate.getFullYear());
+
+  Promise.all([
+    fetch('events.json?v=1.0.1').then(res => res.json()),
+    fetch('events-temporary.json?v=1.0.1').then(res => res.json())
+  ])
+    .then(([anniversaries, temporaries]) => {
+      events = [...anniversaries, ...temporaries];
+
+      if (DEBUG_MODE) {
+        console.log('events.json ☑ + temporary ☑ 読み込み成功:', events);
+      }
+
+      activeCategories = [];
+      renderCalendar();
+    })
+    .catch(err => {
+      if (DEBUG_MODE) {
+        console.error('イベント読み込み ✖:', err);
+      }
+    });
+
+  const searchBtn = document.getElementById('search-btn');
+  if (searchBtn) {
+    searchBtn.onclick = () => {
+      alert('準備中');
+      renderCalendar();
+    };
+  }
+
+  categorySelect.addEventListener('change', () => {
+    const mode = categorySelect.value;
+    if (DEBUG_MODE) console.log('カテゴリ選択:', mode);
+
+    switch (mode) {
+      case 'none': activeCategories = []; break;
+      case 'anniversary': activeCategories = ['anniversary']; break;
+      case 'active': activeCategories = ['zadankai', 'meeting', 'event', 'support', 'campaign']; break;
+      case 'all':
+        activeCategories = ['anniversary', 'birthday', 'memorial', 'visiting', 'group', 'holiday', 'zadankai', 'meeting', 'event', 'support', 'campaign'];
+        break;
+    }
+
+    renderCalendar();
+  });
+
+  const modalClose = document.getElementById('modal-close');
+  const modalBackdrop = document.getElementById('modal-backdrop');
+  const clearBtn = document.getElementById('clear-cache-btn');
+  const confirmModal = document.getElementById('confirm-modal');
+  const yesBtn = document.getElementById('confirm-yes');
+  const noBtn = document.getElementById('confirm-no');
+
+  console.log('[DEBUG] clearBtn:', clearBtn);
+
+  if (modalClose && modalBackdrop) {
+    modalClose.addEventListener('click', closeModal);
+    modalBackdrop.addEventListener('click', closeModal);
+    console.log('[DEBUG] イベントモーダル: 閉じる登録 ✅');
+  } else {
+    console.warn('[DEBUG] イベントモーダル: 要素が見つかりません ❌');
+  }
+
+  if (clearBtn && confirmModal && yesBtn && noBtn) {
+    clearBtn.addEventListener('click', () => {
+      console.log('[DEBUG] キャッシュクリアボタン押された！');
+      confirmModal.style.display = 'block';
+      document.body.classList.add('modal-open');
+    });
+
+    yesBtn.addEventListener('click', async () => {
+      console.log('[DEBUG] confirm-yes 押された → キャッシュ削除処理へ');
+      const keys = await caches.keys();
+      await Promise.all(keys.map(key => caches.delete(key)));
+      alert('キャッシュを削除しました。ページをリロードします');
+      location.reload();
+    });
+
+    noBtn.addEventListener('click', () => {
+      confirmModal.style.display = 'none';
+      document.body.classList.remove('modal-open');
+    });
+  } else {
+    console.warn('[DEBUG] キャッシュ確認モーダル: 要素不足 ❌');
+  }
+});
+
 function openModal() {
   scrollY = window.scrollY;
   document.body.style.top = `-${scrollY}px`;
@@ -36,65 +128,6 @@ function closeModal() {
   modal.style.display = "none";
   modalBackdrop.style.display = "none";
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  if (DEBUG_MODE) {
-    console.log('DOMContentLoaded:☑');
-  }
-
-  holidays = getDynamicHolidays(currentDate.getFullYear());
-
-  Promise.all([
-    fetch('events.json?v=1.0.1').then(res => res.json()),
-    fetch('events-temporary.json?v=1.0.1').then(res => res.json())
-  ])
-  .then(([anniversaries, temporaries]) => {
-    events = [...anniversaries, ...temporaries];
-
-    if (DEBUG_MODE) {
-      console.log('events.json ☑ + temporary ☑ 読み込み成功:', events);
-    }
-
-    activeCategories = [];
-    renderCalendar();
-  })
-  .catch(err => {
-    if (DEBUG_MODE) {
-      console.error('イベント読み込み ✖:', err);
-    }
-  });
-});
-  const searchBtn = document.getElementById('search-btn');
-  if (searchBtn) {
-  searchBtn.onclick = () => {
-    alert('準備中');
-    renderCalendar();
-  };
-}
-
- categorySelect.addEventListener('change', () => {
-  const mode = categorySelect.value;
-  if (DEBUG_MODE) console.log('カテゴリ選択:', mode);
-
-  switch (mode) {
-    case 'none':
-      activeCategories = [];
-      break;
-    case 'anniversary':
-      activeCategories = ['anniversary'];
-      break;
-    case 'active':
-      activeCategories = ['zadankai', 'meeting', 'event', 'support', 'campaign'];
-      break;
-    case 'all':
-      activeCategories = ['anniversary', 'birthday', 'memorial', 'visiting', 'group',
-        'holiday', 'zadankai', 'meeting', 'event', 'support', 'campaign'];
-      break;
-  }
-
-  renderCalendar();
-});
-  
 
 function getDynamicHolidays(year) {
   const holidays = [];
@@ -415,48 +448,3 @@ async function forceDeleteCacheAndSW() {
   alert('キャッシュとService Worker削除完了！リロードします');
   location.reload();
 }
-
-window.addEventListener('load', () => {
-  const modalClose = document.getElementById('modal-close');
-  const modalBackdrop = document.getElementById('modal-backdrop');
-  const clearBtn = document.getElementById('clear-cache-btn');
-  const confirmModal = document.getElementById('confirm-modal');
-  const yesBtn = document.getElementById('confirm-yes');
-  const noBtn = document.getElementById('confirm-no');
-
-  console.log('[DEBUG] clearBtn:', clearBtn); // ★ここでnullかどうか確認！
-
-  // イベントモーダル閉じる
-  if (modalClose && modalBackdrop) {
-    modalClose.addEventListener('click', closeModal);
-    modalBackdrop.addEventListener('click', closeModal);
-    console.log('[DEBUG] イベントモーダル: 閉じる登録 ✅');
-  } else {
-    console.warn('[DEBUG] イベントモーダル: 要素が見つかりません ❌');
-  }
-
-  // キャッシュクリア確認モーダル処理
-  if (clearBtn && confirmModal && yesBtn && noBtn) {
-    clearBtn.addEventListener('click', () => {
-      console.log('[DEBUG] キャッシュクリアボタン押された！'); // ✅これが出ればOK！
-      confirmModal.style.display = 'block';
-      document.body.classList.add('modal-open');
-    });
-
-    yesBtn.addEventListener('click', async () => {
-      if ('caches' in window) {
-        const keys = await caches.keys();
-        await Promise.all(keys.map(key => caches.delete(key)));
-        alert('キャッシュを削除しました。ページをリロードします');
-        location.reload();
-      }
-    });
-
-    noBtn.addEventListener('click', () => {
-      confirmModal.style.display = 'none';
-      document.body.classList.remove('modal-open');
-    });
-  } else {
-    console.warn('[DEBUG] キャッシュ確認モーダル: 要素不足 ❌');
-  }
-});
