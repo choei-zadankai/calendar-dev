@@ -378,9 +378,20 @@ nextBtn.onclick = () => {
   renderCalendar();
 };
 
-modalClose.onclick = closeModal;
+document.addEventListener('DOMContentLoaded', () => {
+  const modalClose = document.getElementById('modal-close');
+  const modalBackdrop = document.getElementById('modal-backdrop');
+  
+  if (modalClose) {
+    modalClose.onclick = closeModal;
+  } else {
+    console.warn('❗modal-close が見つかりませんでした');
+  }
 
-modalBackdrop.onclick = modalClose;
+  if (modalBackdrop) {
+    modalBackdrop.onclick = closeModal;
+  }
+});
 
 function getCategoryLabel(cat) {
   const labels = {
