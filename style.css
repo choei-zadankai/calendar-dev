@@ -476,4 +476,11 @@ button:hover {
 #confirm-modal button:hover {
   background-color: #45a049;
 }
+
+body.modal-open {
+  overflow: hidden;
+  height: 100vh;
+  position: fixed;
+  width: 100%;
+}
 }

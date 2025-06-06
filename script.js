@@ -387,6 +387,16 @@ function getCategoryLabel(cat) {
   return labels[cat] || cat;
 }
 
+function openModal() {
+  document.getElementById("confirm-modal").style.display = "block";
+  document.body.classList.add("modal-open");
+}
+
+function closeModal() {
+  document.getElementById("confirm-modal").style.display = "none";
+  document.body.classList.remove("modal-open");
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const clearBtn = document.getElementById('clear-cache-btn');
   const confirmModal = document.getElementById('confirm-modal');
