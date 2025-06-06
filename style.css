@@ -485,6 +485,7 @@ fieldset {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: none; /* 初期は非表示 */
+  overflow-y: auto;
 }
 
 /* モーダル本体 */
@@ -502,6 +503,7 @@ fieldset {
   text-align: center;
   display: block;
   overflow-y: auto;
+ 
 }
 
 /* モーダルボタン */
