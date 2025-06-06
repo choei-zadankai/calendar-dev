@@ -384,6 +384,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const confirmModal = document.getElementById('confirm-modal-backdrop');
   const yesBtn = document.getElementById('confirm-yes');
   const noBtn = document.getElementById('confirm-no');
+  const modalCloseBtn = document.getElementById('modal-close');
+  const modalBackdrop = document.getElementById('modal-backdrop');
+
+   if (modalCloseBtn && modalBackdrop) {
+    modalCloseBtn.addEventListener('click', closeModal);
+    modalBackdrop.addEventListener('click', closeModal);
+  } else {
+    console.warn('[モーダル] close要素が見つかりませんでした');
+  }
+
 
   if (clearBtn && confirmModal && yesBtn && noBtn) {
     clearBtn.addEventListener('click', async () => {
