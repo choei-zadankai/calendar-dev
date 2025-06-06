@@ -317,7 +317,7 @@ body.modal-open {
 }
 
 /* 確認モーダル全体 */
-#confirm-modal {
+#confirm-modal-backdrop {
   position: fixed;
   top: 0;
   left: 0;
@@ -333,7 +333,7 @@ body.modal-open {
 }
 
 /* モーダルボタン */
-#confirm-modal button {
+#confirm-modal-backdrop button {
   margin: 1rem 0.5rem 0 0.5rem;
   padding: 0.6rem 1.2rem;
   font-size: 1.1rem;
@@ -344,7 +344,7 @@ body.modal-open {
   cursor: pointer;
 }
 
-#confirm-modal button:hover {
+#confirm-modal-backdrop button:hover {
   background-color: #45a049;
 }
 
