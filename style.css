@@ -167,6 +167,18 @@ button:hover {
   box-sizing: border-box; 
 }
 
+/*カテゴリの位置設定*/
+.category-controls {
+  text-align: center;
+  margin: 1rem auto;
+}
+
+.category-controls label {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+
 /* 各カテゴリに対応する色の定義 */
 .category-anniversary,
 .event.category-anniversary {
