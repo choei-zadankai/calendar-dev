@@ -435,3 +435,11 @@ async function forceDeleteCache() {
   alert('すべてのキャッシュを削除しました（強制モード）');
 }
  
+async function forceDeleteCacheAndSW() {
+  const keys = await caches.keys();
+  await Promise.all(keys.map(k => caches.delete(k)));
+  const regs = await navigator.serviceWorker.getRegistrations();
+  await Promise.all(regs.map(reg => reg.unregister()));
+  alert('キャッシュとService Worker削除完了！リロードします');
+  location.reload();
+}
