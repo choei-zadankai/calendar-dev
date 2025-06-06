@@ -400,6 +400,22 @@ async function forceDeleteCacheAndSW() {
   location.reload();
 }
 
+function openModal() {
+  scrollY = window.scrollY;
+  document.body.style.top = `-${scrollY}px`;
+  document.body.classList.add('modal-open');
+  modal.style.display = "block";
+  modalBackdrop.style.display = "block";
+}
+
+function closeModal() {
+  document.body.classList.remove('modal-open');
+  document.body.style.top = '';
+  window.scrollTo(0, scrollY);
+  modal.style.display = "none";
+  modalBackdrop.style.display = "none";
+}
+
 window.addEventListener('load', () => {
   const modalClose = document.getElementById('modal-close');
   const modalBackdrop = document.getElementById('modal-backdrop');
