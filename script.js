@@ -423,5 +423,15 @@ function getCategoryLabel(cat) {
   return labels[cat] || cat;
 }
 
+async function forceDeleteCache() {
+  const keys = await caches.keys();
+  console.log('[DEBUG] キャッシュ一覧:', keys);
 
+  await Promise.all(keys.map(async key => {
+    const result = await caches.delete(key);
+    console.log(`削除対象: ${key} → ${result ? '✅成功' : '❌失敗'}`);
+  }));
+
+  alert('すべてのキャッシュを削除しました（強制モード）');
+}
  
