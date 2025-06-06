@@ -332,6 +332,15 @@ body.modal-open {
   -webkit-overflow-scrolling: touch;
 }
 
+.confirm-modal-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
 /* モーダルボタン */
 #confirm-modal-backdrop button {
   margin: 1rem 0.5rem 0 0.5rem;
