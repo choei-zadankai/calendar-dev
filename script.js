@@ -91,9 +91,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (clearBtn && confirmModal && yesBtn && noBtn) {
     clearBtn.addEventListener('click', () => {
-      console.log('[DEBUG] キャッシュクリアボタン押された！');
-      confirmModal.style.display = 'block';
-      document.body.classList.add('modal-open');
+    console.log('[DEBUG] キャッシュクリアボタン押された！');
+    confirmModal.style.display = 'block';
+    console.log('[DEBUG] モーダル表示スタイル:', confirmModal.style.display); // ← ここ確認！
+    document.body.classList.add('modal-open');
     });
 
     yesBtn.addEventListener('click', async () => {
