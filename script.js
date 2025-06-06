@@ -1,8 +1,8 @@
-// 📌 デバッグモード
-const DEBUG_MODE = true; // 本番公開時は false に
-if (DEBUG_MODE) console.log('script.js ロード完了☑');
+const DEBUG_MODE = true;  //完成したら「false」にする
+if(DEBUG_MODE){
+console.log('script.js ロード完了☑');
+}
 
-// 📌 DOM 要素取得
 const calendarGrid = document.querySelector('.calendar-grid');
 const headerMonth = document.querySelector('.calendar-header span');
 const prevBtn = document.querySelector('.calendar-header button:first-child');
@@ -15,152 +15,70 @@ const modalClose = document.getElementById('modal-close');
 const monthTitle = document.getElementById('calendar-month-title');
 const categorySelect = document.getElementById('category-mode');
 
-// 📌 状態変数
 let currentDate = new Date();
 let events = [];
 let holidays = [];
 let activeCategories = [];
 
-// 📌 初期化処理
-window.addEventListener('DOMContentLoaded', () => {
-  if (DEBUG_MODE) console.log('DOMContentLoaded:☑');
+document.addEventListener('DOMContentLoaded', () => {
+  if (DEBUG_MODE) {
+    console.log('DOMContentLoaded:☑');
+  }
+
   holidays = getDynamicHolidays(currentDate.getFullYear());
 
-  // JSONファイル2つを読み込み
   Promise.all([
     fetch('events.json?v=1.0.1').then(res => res.json()),
     fetch('events-temporary.json?v=1.0.1').then(res => res.json())
   ])
   .then(([anniversaries, temporaries]) => {
     events = [...anniversaries, ...temporaries];
-    if (DEBUG_MODE) console.log('読み込み成功 ✅:', events);
+
+    if (DEBUG_MODE) {
+      console.log('events.json ☑ + temporary ☑ 読み込み成功:', events);
+    }
+
     activeCategories = [];
     renderCalendar();
   })
   .catch(err => {
-    if (DEBUG_MODE) console.error('イベント読み込みエラー ✖:', err);
+    if (DEBUG_MODE) {
+      console.error('イベント読み込み ✖:', err);
+    }
   });
 });
+  const searchBtn = document.getElementById('search-btn');
+  if (searchBtn) {
+  searchBtn.onclick = () => {
+    alert('準備中');
+    renderCalendar();
+  };
+}
 
-// 📌 カテゴリ選択切替
-categorySelect.addEventListener('change', () => {
+ categorySelect.addEventListener('change', () => {
   const mode = categorySelect.value;
   if (DEBUG_MODE) console.log('カテゴリ選択:', mode);
+
   switch (mode) {
-    case 'none': activeCategories = []; break;
-    case 'anniversary': activeCategories = ['anniversary']; break;
-    case 'active': activeCategories = ['zadankai', 'meeting', 'event', 'support', 'campaign']; break;
-    case 'all': activeCategories = ['anniversary', 'birthday', 'memorial', 'visiting', 'group', 'holiday', 'zadankai', 'meeting', 'event', 'support', 'campaign']; break;
+    case 'none':
+      activeCategories = [];
+      break;
+    case 'anniversary':
+      activeCategories = ['anniversary'];
+      break;
+    case 'active':
+      activeCategories = ['zadankai', 'meeting', 'event', 'support', 'campaign'];
+      break;
+    case 'all':
+      activeCategories = ['anniversary', 'birthday', 'memorial', 'visiting', 'group',
+        'holiday', 'zadankai', 'meeting', 'event', 'support', 'campaign'];
+      break;
   }
+
   renderCalendar();
 });
+  
 
-// 📌 カレンダー描画
-function renderCalendar(searchTerm = '', mode = 'title') {
-  calendarGrid.innerHTML = '';
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth();
-  const firstDay = new Date(year, month, 1).getDay();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const today = new Date();
-  headerMonth.textContent = `${year}年 ${month + 1}月`;
-  if (monthTitle) monthTitle.textContent = `${year}年 ${month + 1}月`;
-
-  // 曜日ヘッダー
-  ['日', '月', '火', '水', '木', '金', '土'].forEach(day => {
-    const div = document.createElement('div');
-    div.className = 'day-name';
-    div.textContent = day;
-    calendarGrid.appendChild(div);
-  });
-
-  // 空白セル
-  for (let i = 0; i < firstDay; i++) {
-    const blank = document.createElement('div');
-    blank.className = 'day-cell';
-    calendarGrid.appendChild(blank);
-  }
-
-  // 日付セル
-  for (let day = 1; day <= daysInMonth; day++) {
-    const cell = document.createElement('div');
-    cell.className = 'day-cell';
-    const number = document.createElement('span');
-    number.className = 'day-number';
-    number.textContent = day;
-    cell.appendChild(number);
-
-    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-    if (year === today.getFullYear() && month === today.getMonth() && day === today.getDate()) {
-      cell.classList.add('today');
-    }
-
-    // イベント取得
-    let eventList;
-    try {
-      eventList = events.filter(ev => {
-        const target = mode === 'category' ? ev.category.toLowerCase() : ev.title.toLowerCase();
-        const inCat = activeCategories.length === 0 ? false : activeCategories.includes(ev.category);
-        const inDate = inRange(ev, year, month, day);
-        const match = target.includes(searchTerm);
-        if (DEBUG_MODE) console.log('🔍 チェック:', { title: ev.title, inCat, inDate, match });
-        return inDate && match && inCat;
-      });
-    } catch (e) {
-      if (DEBUG_MODE) console.error('イベント処理中にエラー:', e);
-      return;
-    }
-
-    eventList.forEach(ev => {
-      const e = document.createElement('div');
-      e.textContent = ev.title;
-      e.className = `event category-${ev.category}`;
-      e.onclick = () => {
-        modalTitle.textContent = ev.title;
-        modalDetail.textContent = ev.detail || '詳細情報はありません';
-        modal.style.display = 'block';
-        modalBackdrop.style.display = 'block';
-      };
-      cell.appendChild(e);
-    });
-
-    calendarGrid.appendChild(cell);
-  }
-}
-
-// 📌 inRange（日付一致チェック）
-function inRange(event, y, m, d) {
-  const target = new Date(y, m, d);
-  let start, end;
-  try {
-    if (event.everyYear && typeof event.date === 'string') {
-      const [mm, dd] = event.date.split('-').map(Number);
-      start = new Date(y, mm - 1, dd);
-      end = new Date(start);
-    } else if (event.date) {
-      const [yyyy, mm, dd] = event.date.split('-').map(Number);
-      start = new Date(yyyy, mm - 1, dd);
-      end = new Date(start);
-    } else {
-      start = new Date(event.start);
-      end = event.end ? new Date(event.end) : new Date(start);
-    }
-    return target >= start && target <= end;
-  } catch (e) {
-    if (DEBUG_MODE) console.error('inRange error:', e, event);
-    return false;
-  }
-}
-
-// 📌 六曜取得（暦）
-function getRokuyo(date) {
-  const rokuyo = ['先勝', '友引', '先負', '仏滅', '大安', '赤口'];
-  const baseDate = new Date(1900, 0, 1);
-  const diff = Math.floor((date - baseDate) / 86400000);
-  return rokuyo[diff % 6];
-}
-
-// 📌 祝日計算（動的）
 function getDynamicHolidays(year) {
   const holidays = [];
 
@@ -233,28 +151,264 @@ function getDynamicHolidays(year) {
   return holidays;
 }
 
-// 📌 前月・次月ボタン
+function getRokuyo(date) {
+  const rokuyo = ['先勝', '友引', '先負', '仏滅', '大安', '赤口'];
+  const baseDate = new Date(1900, 0, 1);
+  const diff = Math.floor((date - baseDate) / 86400000);
+  return rokuyo[diff % 6];
+}
+
+function inRange(event, y, m, d) {
+  const target = new Date(y, m, d);
+
+  let start, end;
+
+  try {
+    if (event.everyYear && typeof event.date === 'string') {
+      const [mm, dd] = event.date.split('-').map(Number);
+      start = new Date(y, mm - 1, dd);
+      end = new Date(start);
+    } else if (event.date) {
+      const [yyyy, mm, dd] = event.date.split('-').map(Number);
+      start = new Date(yyyy, mm - 1, dd);
+      end = new Date(start);
+    } else {
+      start = new Date(event.start);
+      end = event.end ? new Date(event.end) : new Date(start);
+    }
+
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+      if (DEBUG_MODE) {
+        console.warn('⚠️ Invalid Date in event:', event.title, event.date || event.start);
+      }
+      return false;
+    }
+
+    return target >= start && target <= end;
+  } catch (e) {
+    if (DEBUG_MODE) {
+      console.error('inRange error:', e, event);
+    }
+    return false;
+  }
+}
+  
+
+function renderCalendar(searchTerm = '', mode = 'title') {
+  calendarGrid.innerHTML = '';
+  if (DEBUG_MODE) {
+  console.log('現在のカテゴリ設定:', activeCategories);
+}
+
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const today = new Date();
+
+  const monthText = `${year}年 ${month + 1}月`;
+  headerMonth.textContent = monthText;
+  if (monthTitle) monthTitle.textContent = monthText;
+
+  const dayNames = ['日', '月', '火', '水', '木', '金', '土'];
+  dayNames.forEach(day => {
+    const div = document.createElement('div');
+    div.className = 'day-name';
+    div.textContent = day;
+    calendarGrid.appendChild(div);
+  });
+
+  for (let i = 0; i < firstDay; i++) {
+    const blank = document.createElement('div');
+    blank.className = 'day-cell';
+    calendarGrid.appendChild(blank);
+  }
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const cell = document.createElement('div');
+    cell.className = 'day-cell';
+
+    const number = document.createElement('span');
+    number.className = 'day-number';
+    number.textContent = day;
+    cell.appendChild(number);
+
+     if (year === today.getFullYear() && month === today.getMonth() && day === today.getDate()) {
+    cell.classList.add('today');
+  }
+
+
+ if(DEBUG_MODE){
+    console.log( '----','日付:', year, month + 1, day,
+                'inRangeで通ったイベント:', events.filter(ev => inRange(ev, year, month, day)).map(ev => ev.title)
+      );
+ }
+
+    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+  if (activeCategories.length > 0) {
+  cell.onclick = () => {
+    const thisDate = new Date(year, month, day);
+    const dateStr = `${year}年${month + 1}月${day}日 (${['日','月','火','水','木','金','土'][thisDate.getDay()]})`;
+    modalTitle.textContent = dateStr;
+
+    const todaysEvents = events.filter(ev => {
+      return activeCategories.includes(ev.category) && inRange(ev, year, month, day);
+    });
+
+    if (todaysEvents.length === 0) {
+      modalDetail.innerHTML = '<p>この日に表示するイベントはありません</p>';
+    } else {
+      modalDetail.innerHTML = todaysEvents.map(ev => `
+     <div class="modal-item">
+   　 <strong class="modal-item-title">${ev.title}</strong>
+   　 <div class="modal-item-detail">${ev.detail || '詳細なし'}</div>
+  　  <span class="modal-category-label category-${ev.category}">
+     　　 ${getCategoryLabel(ev.category)}
+   　 </span>
+　 　 </div>
+      `).join('');
+    }
+
+    modal.style.display = 'block';
+    modalBackdrop.style.display = 'block';
+  };
+}
+
+    const rokuyoLabel = document.createElement('div');
+    rokuyoLabel.textContent = getRokuyo(new Date(year, month, day));
+    rokuyoLabel.style.fontSize = '0.8rem';
+    rokuyoLabel.style.color = '#999';
+    cell.appendChild(rokuyoLabel);
+
+    const holiday = holidays.find(h => h.date === dateStr);
+    if (holiday) {
+      const holidayLabel = document.createElement('div');
+      holidayLabel.textContent = holiday.name;
+      holidayLabel.className = 'holiday-label';
+      if (holiday.name === '振替休日') holidayLabel.classList.add('holiday-substitute');
+      else if (holiday.name === '国民の休日') holidayLabel.classList.add('holiday-citizens');
+      else holidayLabel.classList.add('holiday-normal');
+      cell.appendChild(holidayLabel);
+    }
+
+let eventList;
+try {
+  eventList = events.filter(ev => {
+  const target = mode === 'category' ? ev.category.toLowerCase() : ev.title.toLowerCase();
+  const inCat = activeCategories.length === 0 ? false : activeCategories.includes(ev.category);
+  const inDate = inRange(ev, year, month, day);
+  const match = target.includes(searchTerm);
+
+  if (DEBUG_MODE) {
+    console.log('🔍 チェック中: ', {
+      title: ev.title,
+      date: ev.date,
+      inCat,
+      inDate,
+      match
+    });
+  }
+
+  return inDate && match && inCat;
+});
+} catch (e) {
+  if(DEBUG_MODE){
+  console.error('イベント処理中にエラー✖:', e);
+  } else {
+    alert('何らかのエラーが発生しました。ページを再読み込みしてください');
+  }
+}
+
+    eventList.forEach(ev => {
+      const e = document.createElement('div');
+      e.textContent = ev.title;
+      e.className = `event category-${ev.category}`;
+      e.onclick = () => {
+        modalTitle.textContent = ev.title;
+        modalDetail.textContent = ev.detail || '詳細情報はありません';
+        modal.style.display = 'block';
+        modalBackdrop.style.display = 'block';
+      };
+      cell.appendChild(e);
+    });
+
+    if (eventList.length > 0 && searchTerm) {
+      cell.classList.add('highlight');
+    }
+
+    calendarGrid.appendChild(cell);
+  }
+}
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js')
+    .then(() => {
+      if (DEBUG_MODE) console.log('✅ Service Worker registered');
+    })
+    .catch(err => {
+      if (DEBUG_MODE) console.error('❌ Service Worker registration failed:', err);
+    });
+}
+
 prevBtn.onclick = () => {
   currentDate.setMonth(currentDate.getMonth() - 1);
   holidays = getDynamicHolidays(currentDate.getFullYear());
   renderCalendar();
 };
+
 nextBtn.onclick = () => {
   currentDate.setMonth(currentDate.getMonth() + 1);
   holidays = getDynamicHolidays(currentDate.getFullYear());
   renderCalendar();
 };
 
-// 📌 モーダル操作
 modalClose.onclick = () => {
   modal.style.display = 'none';
   modalBackdrop.style.display = 'none';
 };
+
 modalBackdrop.onclick = modalClose;
 
-// 📌 ServiceWorker 登録
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('index-service-worker.js')
-    .then(() => DEBUG_MODE && console.log('✅ Service Worker registered'))
-    .catch(err => DEBUG_MODE && console.error('❌ Service Worker registration failed:', err));
+function getCategoryLabel(cat) {
+  const labels = {
+    anniversary: '重要な記念日',
+    birthday: '誕生日',
+    memorial: '命日',
+    visiting: '訪問日',
+    group: '結成日',
+    holiday: '記念日',
+    zadankai: '座談会',
+    meeting: '協議会',
+    event: 'イベント',
+    support: '支援週間',
+    campaign: 'その他週間'
+  };
+  return labels[cat] || cat;
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const clearBtn = document.getElementById('clear-cache-btn');
+  const confirmModal = document.getElementById('confirm-modal');
+  const yesBtn = document.getElementById('confirm-yes');
+  const noBtn = document.getElementById('confirm-no');
+
+  if (clearBtn && confirmModal && yesBtn && noBtn) {
+    clearBtn.addEventListener('click', () => {
+      confirmModal.style.display = 'block';
+    });
+
+    yesBtn.addEventListener('click', async () => {
+      if ('caches' in window) {
+        const keys = await caches.keys();
+        await Promise.all(keys.map(key => caches.delete(key)));
+        alert('キャッシュを削除しました。ページをリロードします');
+        location.reload();
+      }
+    });
+
+    noBtn.addEventListener('click', () => {
+      confirmModal.style.display = 'none';
+    });
+  }
+});
