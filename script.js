@@ -162,7 +162,74 @@ function getRokuyo(date) {
 
 // 📌 祝日計算（動的）
 function getDynamicHolidays(year) {
-  // ...省略（前回と同様）
+  const holidays = [];
+
+  function nthWeekday(n, weekday, month) {
+    const first = new Date(year, month, 1);
+    const offset = (7 + weekday - first.getDay()) % 7;
+    return new Date(year, month, 1 + offset + (n - 1) * 7);
+  }
+
+  function formatDate(dateObj) {
+    return `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}-${String(dateObj.getDate()).padStart(2, '0')}`;
+  }
+
+  function calcShunbun(year) {
+    return Math.floor(20.8431 + 0.242194 * (year - 1980) - Math.floor((year - 1980) / 4));
+  }
+
+  function calcShubun(year) {
+    return Math.floor(23.2488 + 0.242194 * (year - 1980) - Math.floor((year - 1980) / 4));
+  }
+
+  holidays.push({ date: `${year}-01-01`, name: "元日" });
+  holidays.push({ date: formatDate(nthWeekday(2, 1, 0)), name: "成人の日" });
+  holidays.push({ date: `${year}-02-11`, name: "建国記念の日" });
+  if (year >= 2020) holidays.push({ date: `${year}-02-23`, name: "天皇誕生日" });
+  holidays.push({ date: `${year}-03-${calcShunbun(year)}`, name: "春分の日" });
+  holidays.push({ date: `${year}-04-29`, name: "昭和の日" });
+  holidays.push({ date: `${year}-05-03`, name: "憲法記念日" });
+  holidays.push({ date: `${year}-05-04`, name: "みどりの日" });
+  holidays.push({ date: `${year}-05-05`, name: "こどもの日" });
+  holidays.push({ date: formatDate(nthWeekday(3, 1, 6)), name: "海の日" });
+  holidays.push({ date: formatDate(nthWeekday(3, 1, 8)), name: "敬老の日" });
+  holidays.push({ date: `${year}-09-${calcShubun(year)}`, name: "秋分の日" });
+  holidays.push({ date: formatDate(nthWeekday(2, 1, 9)), name: "スポーツの日" });
+  holidays.push({ date: `${year}-11-03`, name: "文化の日" });
+  holidays.push({ date: `${year}-11-23`, name: "勤労感謝の日" });
+
+  // 振替休日
+  const addedDates = new Set(holidays.map(h => h.date));
+  holidays.forEach(h => {
+    const holidayDate = new Date(h.date);
+    if (holidayDate.getDay() === 0) {
+      let subDate = new Date(holidayDate);
+      do {
+        subDate.setDate(subDate.getDate() + 1);
+      } while (addedDates.has(formatDate(subDate)));
+      holidays.push({ date: formatDate(subDate), name: "振替休日" });
+      addedDates.add(formatDate(subDate));
+    }
+  });
+
+  // 国民の休日
+  holidays.sort((a, b) => new Date(a.date) - new Date(b.date));
+  for (let i = 1; i < holidays.length - 1; i++) {
+    const prev = new Date(holidays[i - 1].date);
+    const next = new Date(holidays[i + 1].date);
+    const between = new Date(prev);
+    between.setDate(prev.getDate() + 1);
+    const betweenStr = formatDate(between);
+    if (
+      betweenStr === holidays[i].date &&
+      (next - between) / 86400000 === 1 &&
+      !addedDates.has(betweenStr)
+    ) {
+      holidays.push({ date: betweenStr, name: "国民の休日" });
+      addedDates.add(betweenStr);
+    }
+  }
+
   return holidays;
 }
 
