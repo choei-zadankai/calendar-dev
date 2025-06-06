@@ -457,5 +457,13 @@ window.addEventListener('load', () => {
   }
 });
 
+function openModal() {
+  scrollY = window.scrollY;
+  document.body.style.top = `-${scrollY}px`;
+  document.body.classList.add('modal-open');
+  modal.style.display = "block"; 
+  modalBackdrop.style.display = "block"; 
+}
+
 });
 
