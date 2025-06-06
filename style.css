@@ -335,6 +335,7 @@ button:hover {
  .event-modal {
     max-height: 85vh;
     padding: 1rem;
+    overflow-y: auto;
   }
 
  .day-number {
