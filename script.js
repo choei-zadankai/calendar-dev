@@ -342,7 +342,7 @@ try {
 }
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js')
+  navigator.serviceWorker.register('index-service-worker.js')
     .then(() => {
       if (DEBUG_MODE) console.log('✅ Service Worker registered');
     })
