@@ -137,6 +137,28 @@ button:hover {
   text-overflow: ellipsis; 
 }
 
+.holiday-label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-top: 0.2rem;
+}
+
+.holiday-normal {
+  color: red;
+}
+
+.holiday-substitute {
+  background-color: pink ;
+}
+
+.holiday-citizens {
+  background-color: yellow ;
+}
+
+.highlight {
+  background-color: #fff8e1;
+}
+
 /*モーダル（イベント詳細のポップアップ）*/ 
 .modal-backdrop { 
   position: fixed; 
