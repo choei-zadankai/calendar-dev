@@ -187,7 +187,7 @@ modalBackdrop.onclick = modalClose;
 
 // 📌 ServiceWorker 登録
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js')
+  navigator.serviceWorker.register('index-service-worker.js')
     .then(() => DEBUG_MODE && console.log('✅ Service Worker registered'))
     .catch(err => DEBUG_MODE && console.error('❌ Service Worker registration failed:', err));
 }
