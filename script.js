@@ -92,23 +92,49 @@ document.addEventListener('DOMContentLoaded', () => {
   if (clearBtn && confirmModal && yesBtn && noBtn) {
     clearBtn.addEventListener('click', () => {
     console.log('[DEBUG] キャッシュクリアボタン押された！');
-    confirmModal.style.display = 'block';
-    console.log('[DEBUG] モーダル表示スタイル:', confirmModal.style.display); // ← ここ確認！
+    confirmModal.style.display = 'flex';
+    confirmModal.classList.remove('confirm-animate-out');
+    confirmModal.classList.add('confirm-animate-in');
     document.body.classList.add('modal-open');
-    });
+  });
 
-    yesBtn.addEventListener('click', async () => {
-      console.log('[DEBUG] confirm-yes 押された → キャッシュ削除処理へ');
-      const keys = await caches.keys();
-      await Promise.all(keys.map(key => caches.delete(key)));
-      alert('キャッシュを削除しました。ページをリロードします');
-      location.reload();
-    });
+  yesBtn.addEventListener('click', async () => {
+  // キャッシュ削除処理だけ先にやる
+  if ('caches' in window) {
+    const keys = await caches.keys();
+    await Promise.all(keys.map(key => caches.delete(key)));
+  }
+
+  // ✅ ここでアラート表示
+  alert('キャッシュを削除しました。ページをリロードします');
+
+  // アニメーション開始
+  const content = confirmModal.querySelector('.confirm-modal-content');
+  content.classList.remove('confirm-animate-in');
+  content.classList.add('confirm-animate-out');
+  confirmModal.classList.remove('confirm-animate-in');
+  confirmModal.classList.add('confirm-animate-out');
+
+  // アニメ終了後リロード
+  setTimeout(() => {
+    confirmModal.style.display = 'none';
+    confirmModal.classList.remove('confirm-animate-out');
+    content.classList.remove('confirm-animate-out');
+    document.body.classList.remove('modal-open');
+    location.reload();
+  }, 300);
+});
 
     noBtn.addEventListener('click', () => {
-      confirmModal.style.display = 'none';
-      document.body.classList.remove('modal-open');
-    });
+     confirmModal.classList.remove('confirm-animate-in');
+     confirmModal.classList.add('confirm-animate-out');
+     setTimeout(() => {
+       confirmModal.style.display = 'none';
+       confirmModal.classList.remove('confirm-animate-in');
+       confirmModal.classList.remove('confirm-animate-out');
+       document.body.classList.remove('modal-open');
+       }, 300);
+     });
   } else {
     console.warn('[DEBUG] キャッシュ確認モーダル: 要素不足 ❌');
   }
@@ -118,16 +144,24 @@ function openModal() {
   scrollY = window.scrollY;
   document.body.style.top = `-${scrollY}px`;
   document.body.classList.add('modal-open');
-  modal.style.display = "block";
+
+  modal.classList.remove('event-animate-out');
   modalBackdrop.style.display = "block";
+  modal.style.display = "block";
+  modal.classList.add('event-animate-in');
 }
 
 function closeModal() {
-  document.body.classList.remove('modal-open');
-  document.body.style.top = '';
-  window.scrollTo(0, scrollY);
-  modal.style.display = "none";
-  modalBackdrop.style.display = "none";
+  modal.classList.remove('event-animate-in');
+  modal.classList.add('event-animate-out');
+
+  setTimeout(() => {
+    document.body.classList.remove('modal-open');
+    document.body.style.top = '';
+    window.scrollTo(0, scrollY);
+    modal.style.display = "none";
+    modalBackdrop.style.display = "none";
+  }, 300); // アニメーションと一致
 }
 
 function getDynamicHolidays(year) {
@@ -403,13 +437,13 @@ if ('serviceWorker' in navigator) {
 prevBtn.onclick = () => {
   currentDate.setMonth(currentDate.getMonth() - 1);
   holidays = getDynamicHolidays(currentDate.getFullYear());
-  renderCalendar();
+  slideCalendarAndRender('right');
 };
 
 nextBtn.onclick = () => {
   currentDate.setMonth(currentDate.getMonth() + 1);
   holidays = getDynamicHolidays(currentDate.getFullYear());
-  renderCalendar();
+  slideCalendarAndRender('left');
 };
 
 function getCategoryLabel(cat) {
@@ -427,6 +461,15 @@ function getCategoryLabel(cat) {
     campaign: 'その他週間'
   };
   return labels[cat] || cat;
+}
+
+function slideCalendarAndRender(direction = 'left') {
+  calendarGrid.innerHTML = ''; // 念のためクリア
+  const className = direction === 'left' ? 'slide-left-enter' : 'slide-right-enter';
+  calendarGrid.classList.remove('slide-left-enter', 'slide-right-enter');
+  void calendarGrid.offsetWidth; // 強制再描画
+  renderCalendar();
+  calendarGrid.classList.add(className);
 }
 
 async function forceDeleteCache() {
