@@ -422,7 +422,7 @@ body.modal-open {
   height: 100%;
 }
 
-/* モーダル背景：中央寄せを flex で正しく行う */
+/* 背景: flexboxでセンタリング */
 #confirm-modal-backdrop {
   position: fixed;
   top: 0;
@@ -439,17 +439,14 @@ body.modal-open {
   -webkit-overflow-scrolling: touch;
 }
 
-/* モーダル本体：中央揃え */
+/* モーダル本体 */
 .confirm-modal-content {
   background-color: white;
   padding: 2rem;
   border-radius: 10px;
   max-width: 90vw;
   width: 90%;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  transform: scale(1);
-  position: relative;
-  animation: fadeZoomIn 0.3s ease forwards;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 /* キャッシュ確認モーダル用フェード */
