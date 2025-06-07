@@ -99,26 +99,29 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   yesBtn.addEventListener('click', async () => {
-  const content = confirmModal.querySelector('.confirm-modal-content');
+  // キャッシュ削除処理だけ先にやる
+  if ('caches' in window) {
+    const keys = await caches.keys();
+    await Promise.all(keys.map(key => caches.delete(key)));
+  }
 
-  // ✅ アニメーション終了→非表示化
+  // ✅ ここでアラート表示
+  alert('キャッシュを削除しました。ページをリロードします');
+
+  // アニメーション開始
+  const content = confirmModal.querySelector('.confirm-modal-content');
   content.classList.remove('confirm-animate-in');
   content.classList.add('confirm-animate-out');
   confirmModal.classList.remove('confirm-animate-in');
   confirmModal.classList.add('confirm-animate-out');
 
-  setTimeout(async () => {
+  // アニメ終了後リロード
+  setTimeout(() => {
     confirmModal.style.display = 'none';
-    content.classList.remove('confirm-animate-out');
     confirmModal.classList.remove('confirm-animate-out');
+    content.classList.remove('confirm-animate-out');
     document.body.classList.remove('modal-open');
-
-    if ('caches' in window) {
-      const keys = await caches.keys();
-      await Promise.all(keys.map(key => caches.delete(key)));
-      alert('キャッシュを削除しました。ページをリロードします');
-      location.reload();
-    }
+    location.reload();
   }, 300);
 });
 
