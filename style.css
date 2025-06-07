@@ -190,6 +190,26 @@ button:hover {
   display: none;
 }
 
+/* イベントモーダル: アニメーションの基本設定 */
+.modal-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+.modal-fade-out {
+  animation: fadeOut 0.2s ease-in forwards;
+}
+
+/* フェードイン */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -60%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/* フェードアウト */
+@keyframes fadeOut {
+  from { opacity: 1; transform: translate(-50%, -50%); }
+  to { opacity: 0; transform: translate(-50%, -60%); }
+}
+
 /* モーダル背景 */
 #modal-backdrop {
   position: fixed;
@@ -339,6 +359,24 @@ body.modal-open {
   max-width: 400px;
   margin: 0 auto;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* キャッシュ確認モーダル用フェード */
+.confirm-fade-in {
+  animation: confirmFadeIn 0.3s ease-out forwards;
+}
+.confirm-fade-out {
+  animation: confirmFadeOut 0.2s ease-in forwards;
+}
+
+@keyframes confirmFadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes confirmFadeOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.95); }
 }
 
 /* モーダルボタン */

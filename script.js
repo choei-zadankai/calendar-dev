@@ -92,7 +92,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (clearBtn && confirmModal && yesBtn && noBtn) {
     clearBtn.addEventListener('click', () => {
     console.log('[DEBUG] キャッシュクリアボタン押された！');
-    confirmModal.style.display = 'block';
+    confirmModal.style.display = 'flex';
+    confirmModal.classList.remove('confirm-fade-out');
+    confirmModal.classList.add('confirm-fade-in');
     console.log('[DEBUG] モーダル表示スタイル:', confirmModal.style.display); // ← ここ確認！
     document.body.classList.add('modal-open');
     });
@@ -106,9 +108,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     noBtn.addEventListener('click', () => {
-      confirmModal.style.display = 'none';
-      document.body.classList.remove('modal-open');
-    });
+     confirmModal.classList.remove('confirm-fade-in');
+     confirmModal.classList.add('confirm-fade-out');
+     setTimeout(() => {
+       confirmModal.style.display = 'none';
+       document.body.classList.remove('modal-open');
+       }, 200);
+     });
   } else {
     console.warn('[DEBUG] キャッシュ確認モーダル: 要素不足 ❌');
   }
@@ -118,16 +124,22 @@ function openModal() {
   scrollY = window.scrollY;
   document.body.style.top = `-${scrollY}px`;
   document.body.classList.add('modal-open');
+  modal.classList.remove('modal-fade-out');
+  modal.classList.add('modal-fade-in');
   modal.style.display = "block";
   modalBackdrop.style.display = "block";
 }
 
 function closeModal() {
-  document.body.classList.remove('modal-open');
-  document.body.style.top = '';
-  window.scrollTo(0, scrollY);
-  modal.style.display = "none";
-  modalBackdrop.style.display = "none";
+  modal.classList.remove('modal-fade-in');
+  modal.classList.add('modal-fade-out');
+  setTimeout(() => {
+    modal.style.display = "none";
+    modalBackdrop.style.display = "none";
+    document.body.classList.remove('modal-open');
+    document.body.style.top = '';
+    window.scrollTo(0, scrollY);
+  }, 200);
 }
 
 function getDynamicHolidays(year) {
