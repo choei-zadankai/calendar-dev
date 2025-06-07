@@ -10,7 +10,7 @@ body {
 
 h1, h2 {
   text-align: center;
-  font-size: 1.7rem;
+  font-size: 2rem;
   margin-bottom: 1rem;
 }
 
@@ -636,7 +636,7 @@ fieldset {
   }
 
   h1{
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     white-space: normal;
     word-break: keep-all;
   }
