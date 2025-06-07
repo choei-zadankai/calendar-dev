@@ -114,12 +114,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
     noBtn.addEventListener('click', () => {
-     confirmModal.classList.remove('confirm-animate-out');
-     confirmModal.classList.add('confirm-animate-in');
+     confirmModal.classList.remove('confirm-animate-in');
+     confirmModal.classList.add('confirm-animate-out');
      setTimeout(() => {
        confirmModal.style.display = 'none';
+       confirmModal.classList.remove('confirm-animate-in');
+       confirmModal.classList.remove('confirm-animate-out');
        document.body.classList.remove('modal-open');
-       }, 200);
+       }, 300);
      });
   } else {
     console.warn('[DEBUG] キャッシュ確認モーダル: 要素不足 ❌');
