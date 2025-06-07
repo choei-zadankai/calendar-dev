@@ -18,13 +18,17 @@ h1 {
   color: black;
   font-weight: bold;
   text-shadow:
-    -1px -1px 0 white,
-     1px -1px 0 white,
-    -1px 1px 0 white,
-     1px 1px 0 white,
-     2px 2px 4px rgba(0,0,0,0.4); /* ← 白縁に落ちる影 */
+    -2px -2px 0 white,
+     2px -2px 0 white,
+    -2px 2px 0 white,
+     2px 2px 0 white,
+    -3px 0px 0 white,
+     3px 0px 0 white,
+     0px -3px 0 white,
+     0px 3px 0 white,
+     3px 3px 4px rgba(0,0,0,0.4); /* ← 白フチに影 */
   margin-bottom: 1.5rem;
-}
+   }
 
 .form-group {
     margin-bottom: 1.5rem;
