@@ -98,12 +98,15 @@ button {
   cursor: pointer;
   margin-right: 0.5rem;
   transition: transform 0.1s ease, background-color 0.2s ease;
+  transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
 }
 
 button:active {
   transform: scale(0.95);
   background-color: #388e3c; /* 押下時色変化 */
   box-shadow: 0 2px 5px rgba(0,0,0,0.3) inset;
+  transform: scale(0.92);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
 }
 
 button:hover {
