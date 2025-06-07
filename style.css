@@ -45,8 +45,9 @@ h1 {
 }
 
 .calendar-header button {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   padding: 0.5rem 1rem;
+  min-width: 48px;
   border-radius: 10px;
   border: none;
   background-color: #4caf50;
@@ -96,6 +97,13 @@ button {
   border: none;
   cursor: pointer;
   margin-right: 0.5rem;
+  transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+button:active {
+  transform: scale(0.95);
+  background-color: #388e3c; /* 押下時色変化 */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3) inset;
 }
 
 button:hover {
