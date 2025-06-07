@@ -422,7 +422,7 @@ body.modal-open {
   height: 100%;
 }
 
-/* キャッシュクリア確認モーダル背景 */
+/* モーダル背景：中央寄せを flex で正しく行う */
 #confirm-modal-backdrop {
   position: fixed;
   top: 0;
@@ -431,26 +431,25 @@ body.modal-open {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  display: none; /* 初期非表示だけにしておく */
+  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
-/* キャッシュクリア確認モーダル本体 */
+/* モーダル本体：中央揃え */
 .confirm-modal-content {
   background-color: white;
   padding: 2rem;
   border-radius: 10px;
   max-width: 90vw;
   width: 90%;
-  margin: auto;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  transform: translate(-50%, -50%);
-  position: absolute;
-  left: 50%;
-  top: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transform: scale(1);
+  position: relative;
+  animation: fadeZoomIn 0.3s ease forwards;
 }
 
 /* キャッシュ確認モーダル用フェード */
@@ -462,26 +461,34 @@ body.modal-open {
   animation: fadeZoomOut 0.3s ease forwards;
 }
 /* フェードアップ+ズームインアニメーション */
-@keyframes fadeZoomIn {
+.confirm-animate-in {
+  animation: fadeZoomInConfirm 0.3s ease forwards;
+}
+
+.confirm-animate-out {
+  animation: fadeZoomOutConfirm 0.3s ease forwards;
+}
+
+@keyframes fadeZoomInConfirm {
   0% {
     opacity: 0;
-    transform: translate(-50%, -40%) scale(0.9);
+    transform: scale(0.9);
   }
   100% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transform: scale(1);
   }
 }
 
 /* フェードダウン+ズームアウトアニメーション */
-@keyframes fadeZoomOut {
+@keyframes fadeZoomOutConfirm {
   0% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transform: scale(1);
   }
   100% {
     opacity: 0;
-    transform: translate(-50%, -60%) scale(0.9);
+    transform: scale(0.9);
   }
 }
 
