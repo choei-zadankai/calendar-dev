@@ -95,9 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
     confirmModal.style.display = 'flex';
     confirmModal.classList.remove('confirm-animate-out');
     confirmModal.classList.add('confirm-animate-in');
-    console.log('[DEBUG] モーダル表示スタイル:', confirmModal.style.display); // ← ここ確認！
     document.body.classList.add('modal-open');
-    });
+  });
 
   yesBtn.addEventListener('click', async () => {
    const content = confirmModal.querySelector('.confirm-modal-content');
