@@ -93,23 +93,30 @@ document.addEventListener('DOMContentLoaded', () => {
     clearBtn.addEventListener('click', () => {
     console.log('[DEBUG] キャッシュクリアボタン押された！');
     confirmModal.style.display = 'flex';
-    confirmModal.classList.remove('confirm-fade-out');
-    confirmModal.classList.add('confirm-fade-in');
+    confirmModal.classList.remove('confirm-animate-out');
+    confirmModal.classList.add('confirm-animate-in');
     console.log('[DEBUG] モーダル表示スタイル:', confirmModal.style.display); // ← ここ確認！
     document.body.classList.add('modal-open');
     });
 
-    yesBtn.addEventListener('click', async () => {
-      console.log('[DEBUG] confirm-yes 押された → キャッシュ削除処理へ');
+  yesBtn.addEventListener('click', async () => {
+   const content = confirmModal.querySelector('.confirm-modal-content');
+   content.classList.remove('confirm-animate-out');
+   content.classList.add('confirm-animate-in');
+
+  setTimeout(async () => {
+    if ('caches' in window) {
       const keys = await caches.keys();
       await Promise.all(keys.map(key => caches.delete(key)));
       alert('キャッシュを削除しました。ページをリロードします');
       location.reload();
-    });
+    }
+  }, 300); // アニメーション完了後に実行
+});
 
     noBtn.addEventListener('click', () => {
-     confirmModal.classList.remove('confirm-fade-in');
-     confirmModal.classList.add('confirm-fade-out');
+     confirmModal.classList.remove('confirm-animate-out');
+     confirmModal.classList.add('confirm-animate-in');
      setTimeout(() => {
        confirmModal.style.display = 'none';
        document.body.classList.remove('modal-open');
@@ -124,22 +131,24 @@ function openModal() {
   scrollY = window.scrollY;
   document.body.style.top = `-${scrollY}px`;
   document.body.classList.add('modal-open');
-  modal.classList.remove('modal-fade-out');
-  modal.classList.add('modal-fade-in');
-  modal.style.display = "block";
+
+  modal.classList.remove('event-animate-out');
   modalBackdrop.style.display = "block";
+  modal.style.display = "block";
+  modal.classList.add('event-animate-in');
 }
 
 function closeModal() {
-  modal.classList.remove('modal-fade-in');
-  modal.classList.add('modal-fade-out');
+  modal.classList.remove('event-animate-in');
+  modal.classList.add('event-animate-out');
+
   setTimeout(() => {
-    modal.style.display = "none";
-    modalBackdrop.style.display = "none";
     document.body.classList.remove('modal-open');
     document.body.style.top = '';
     window.scrollTo(0, scrollY);
-  }, 200);
+    modal.style.display = "none";
+    modalBackdrop.style.display = "none";
+  }, 300); // アニメーションと一致
 }
 
 function getDynamicHolidays(year) {
