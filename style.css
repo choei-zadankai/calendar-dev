@@ -448,7 +448,7 @@ body.modal-open {
   margin: auto;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   transform: translate(-50%, -50%);
-  position: relative;
+  position: absolute;
   left: 50%;
   top: 50%;
 }
@@ -678,6 +678,12 @@ fieldset {
     font-size: 1.8rem;
     white-space: normal;
     word-break: keep-all;
+  }
+
+  .confirm-modal-content {
+    width: 90%;
+    max-width: 90%;
+    padding: 1.5rem 1rem;
   }
 
 }
