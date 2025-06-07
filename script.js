@@ -415,13 +415,13 @@ if ('serviceWorker' in navigator) {
 prevBtn.onclick = () => {
   currentDate.setMonth(currentDate.getMonth() - 1);
   holidays = getDynamicHolidays(currentDate.getFullYear());
-  renderCalendar();
+  slideCalendarAndRender('right');
 };
 
 nextBtn.onclick = () => {
   currentDate.setMonth(currentDate.getMonth() + 1);
   holidays = getDynamicHolidays(currentDate.getFullYear());
-  renderCalendar();
+  slideCalendarAndRender('left');
 };
 
 function getCategoryLabel(cat) {
@@ -439,6 +439,15 @@ function getCategoryLabel(cat) {
     campaign: 'その他週間'
   };
   return labels[cat] || cat;
+}
+
+function slideCalendarAndRender(direction = 'left') {
+  calendarGrid.innerHTML = ''; // 念のためクリア
+  const className = direction === 'left' ? 'slide-left-enter' : 'slide-right-enter';
+  calendarGrid.classList.remove('slide-left-enter', 'slide-right-enter');
+  void calendarGrid.offsetWidth; // 強制再描画
+  renderCalendar();
+  calendarGrid.classList.add(className);
 }
 
 async function forceDeleteCache() {

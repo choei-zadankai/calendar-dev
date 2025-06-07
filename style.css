@@ -111,6 +111,36 @@ button:hover {
   gap: 0.3rem;
 }
 
+/* カレンダー移動アニメーション */
+.calendar-grid.slide-left-enter {
+  animation: slideLeftIn 0.3s ease-out forwards;
+}
+.calendar-grid.slide-right-enter {
+  animation: slideRightIn 0.3s ease-out forwards;
+}
+
+@keyframes slideLeftIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideRightIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 .day-name {
   font-weight: bold;
   text-align: center;
