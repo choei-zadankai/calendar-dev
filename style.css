@@ -10,7 +10,7 @@ body {
 
 h1, h2 {
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   margin-bottom: 1rem;
 }
 
@@ -28,6 +28,8 @@ h1 {
      0px 3px 0 white,
      3px 3px 4px rgba(0,0,0,0.4); /* ← 白フチに影 */
   margin-bottom: 1.5rem;
+  line-height: 1.4;
+  padding: 0.5rem 1rem;
    }
 
 .form-group {
@@ -620,6 +622,12 @@ fieldset {
 
  .holiday-label {
     font-size: 0.7rem;
+  }
+
+  h1{
+    font-size: 1.5rem;
+    white-space: normal;
+    word-break: keep-all;
   }
 
 }
