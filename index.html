@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css?v=2.0.0">
   <link rel="manifest" href="manifest-index.json">
   <link rel="icon" href="icon-small.png" type="image/png" />
+  <script src="script.js?v=2.0.0" defer></script>
 </head>
 <body>
   <header>
@@ -66,13 +67,17 @@
 
   </footer>
 
-  <!-- キャッシュクリア確認モーダル -->
-  <div id="confirm-modal-backdrop" class="confirm-modal-backdrop" style="display: none;">
+
+ <!-- キャッシュ確認モーダル -->
+<div id="confirm-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-heading" style="display: none;">
   <div class="confirm-modal-content" style="text-align: center;">
-    <h2>キャッシュを削除しますか？</h2>
+    <h2 id="modal-heading">キャッシュを削除しますか？</h2>
     <p>この操作は元に戻せません。</p>
-    <button id="confirm-yes">はい</button>
-    <button id="confirm-no">いいえ</button>
+
+    <!-- ✅ ボタンここに統合 -->
+   <button id="confirm-yes" class="modal-btn danger">はい</button>
+   <button id="confirm-no" class="modal-btn neutral">いいえ</button>
+
   </div>
 </div>
 
@@ -85,6 +90,6 @@
     }
   </script>
 
-  <script src="script.js?v=2.0.0"></script>
+  
 </body>
 </html>

@@ -119,7 +119,10 @@ button:hover {
 
 .calendar {
   max-width: 800px;
+  width: 100%;
   margin: 0 auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .calendar-grid {
@@ -490,21 +493,47 @@ body.modal-open {
   }
 }
 
-/* モーダルボタン */
-#confirm-modal-backdrop button {
-  margin: 1rem 0.5rem 0 0.5rem;
-  padding: 0.6rem 1.2rem;
+/* 🔁 すべてのモーダル用ボタン共通 */
+.modal-btn {
+  display: inline-block;
+  margin: 1rem 0.5rem 0;
+  padding: 0.6rem 1.4rem;
   font-size: 1.1rem;
-  border: none;
   border-radius: 6px;
-  background-color: #4caf50;
-  color: white;
+  border: none;
   cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  text-align: center;
+  transition: background-color 0.2s ease;
 }
 
-#confirm-modal-backdrop button:hover {
-  background-color: #45a049;
+/* ✅ 赤ボタン（例：confirm-yes） */
+.modal-btn.danger {
+  background-color: #f44336;
+  color: white;
 }
+.modal-btn.danger:hover {
+  background-color: #d32f2f;
+}
+
+/* ✅ グレーキャンセル（例：confirm-no） */
+.modal-btn.neutral {
+  background-color: #ccc;
+  color: #333;
+}
+.modal-btn.neutral:hover {
+  background-color: #bbb;
+}
+
+/* ✅ 通常閉じる（例：modal-close） */
+.modal-btn.close {
+  background-color: #888;
+  color: white;
+}
+.modal-btn.close:hover {
+  background-color: #555;
+}
+
 
 fieldset {
   margin-bottom: 2rem;

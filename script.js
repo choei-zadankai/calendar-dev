@@ -14,6 +14,10 @@ const modalBackdrop = document.getElementById('modal-backdrop');
 const modalClose = document.getElementById('modal-close');
 const monthTitle = document.getElementById('calendar-month-title');
 const categorySelect = document.getElementById('category-mode');
+const clearBtn = document.getElementById('clear-cache-btn');
+const confirmModal = document.getElementById('confirm-modal-backdrop');
+const yesBtn = document.getElementById('confirm-yes');
+const noBtn = document.getElementById('confirm-no');
 
 let currentDate = new Date();
 let events = [];
@@ -72,73 +76,54 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCalendar();
   });
 
-  const modalClose = document.getElementById('modal-close');
-  const modalBackdrop = document.getElementById('modal-backdrop');
-  const clearBtn = document.getElementById('clear-cache-btn');
-  const confirmModal = document.getElementById('confirm-modal-backdrop');
-  const yesBtn = document.getElementById('confirm-yes');
-  const noBtn = document.getElementById('confirm-no');
-
-  console.log('[DEBUG] clearBtn:', clearBtn);
+ 
+console.log('clearBtn:', clearBtn);
+console.log('confirmModal:', confirmModal);
+console.log('yesBtn:', yesBtn);
+console.log('noBtn:', noBtn);
 
   if (modalClose && modalBackdrop) {
-    modalClose.addEventListener('click', closeModal);
-    modalBackdrop.addEventListener('click', closeModal);
-    console.log('[DEBUG] イベントモーダル: 閉じる登録 ✅');
-  } else {
-    console.warn('[DEBUG] イベントモーダル: 要素が見つかりません ❌');
-  }
+      modalClose.addEventListener('click', closeModal);
+      modalBackdrop.addEventListener('click', closeModal);
+      console.log('[DEBUG] イベントモーダル: 閉じる登録 ✅');
+    } else {
+      console.warn('[DEBUG] イベントモーダル: 要素が見つかりません ❌');
+    }
 
-  if (clearBtn && confirmModal && yesBtn && noBtn) {
-    clearBtn.addEventListener('click', () => {
-    console.log('[DEBUG] キャッシュクリアボタン押された！');
-    confirmModal.style.display = 'flex';
-    confirmModal.classList.remove('confirm-animate-out');
-    confirmModal.classList.add('confirm-animate-in');
-    document.body.classList.add('modal-open');
-  });
+ if (clearBtn && confirmModal && yesBtn && noBtn) {
+     clearBtn.addEventListener('click', () => {
+     console.log('[DEBUG] キャッシュクリアボタン押された！');
+     openConfirmModal(); // 🎯 崩れないモーダル表示
+   });
+
 
   yesBtn.addEventListener('click', async () => {
-  // キャッシュ削除処理だけ先にやる
-  if ('caches' in window) {
-    const keys = await caches.keys();
-    await Promise.all(keys.map(key => caches.delete(key)));
-  }
+    if ('caches' in window) {
+      const keys = await caches.keys();
+      await Promise.all(keys.map(key => caches.delete(key)));
+    }
 
   // ✅ ここでアラート表示
-  alert('キャッシュを削除しました。ページをリロードします');
+     alert('キャッシュを削除しました。ページをリロードします');
 
   // アニメーション開始
-  const content = confirmModal.querySelector('.confirm-modal-content');
-  content.classList.remove('confirm-animate-in');
-  content.classList.add('confirm-animate-out');
-  confirmModal.classList.remove('confirm-animate-in');
-  confirmModal.classList.add('confirm-animate-out');
+     const content = confirmModal.querySelector('.confirm-modal-content');
+     content.classList.remove('confirm-animate-in');
+     content.classList.add('confirm-animate-out');
 
   // アニメ終了後リロード
-  setTimeout(() => {
-    confirmModal.style.display = 'none';
-    confirmModal.classList.remove('confirm-animate-out');
-    content.classList.remove('confirm-animate-out');
-    document.body.classList.remove('modal-open');
-    location.reload();
-  }, 300);
-});
+      closeConfirmModal(() => {
+      location.reload(); // 🎯 崩れずアニメ後にリロード
+      });
+    });
 
-    noBtn.addEventListener('click', () => {
-     confirmModal.classList.remove('confirm-animate-in');
-     confirmModal.classList.add('confirm-animate-out');
-     setTimeout(() => {
-       confirmModal.style.display = 'none';
-       confirmModal.classList.remove('confirm-animate-in');
-       confirmModal.classList.remove('confirm-animate-out');
-       document.body.classList.remove('modal-open');
-       }, 300);
-     });
+      noBtn.addEventListener('click', () => {
+      closeConfirmModal(); // 🎯 通常キャンセル
+    });
   } else {
     console.warn('[DEBUG] キャッシュ確認モーダル: 要素不足 ❌');
   }
-});
+ });
 
 
 function openModal() {
@@ -179,6 +164,50 @@ function closeModal() {
     document.body.style.paddingRight = ''; // ← ← ← 忘れずに戻す！
     console.log('[DEBUG] closeModal end scrollY:', window.scrollY);
 
+  }, 300);
+}
+
+//キャッシュクリアボタン押下時レイアウト固定
+let confirmScrollY = 0;
+
+function openConfirmModal() {
+  confirmScrollY = window.scrollY;
+
+  const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+if (scrollBarWidth > 0) {
+  document.body.style.setProperty('--scrollbar-compensation', `${scrollBarWidth}px`);
+  document.body.style.paddingRight = `${scrollBarWidth}px`;
+} else {
+  document.body.style.setProperty('--scrollbar-compensation', `0px`);
+}
+
+  document.documentElement.classList.add('modal-open');
+  document.body.style.overflow = 'hidden';
+  document.body.style.position = 'relative';
+
+  confirmModal.style.display = 'flex';
+  confirmModal.classList.remove('confirm-animate-out');
+  confirmModal.classList.add('confirm-animate-in');
+}
+
+function closeConfirmModal(callback = null) {
+  confirmModal.classList.remove('confirm-animate-in');
+  confirmModal.classList.add('confirm-animate-out');
+
+  setTimeout(() => {
+    confirmModal.style.display = 'none';
+    document.documentElement.classList.remove('modal-open');
+
+    // スクロール・レイアウト修復
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.paddingRight = '';
+    document.body.style.paddingRight = '';
+    document.body.style.removeProperty('--scrollbar-compensation');
+
+    if (typeof callback === 'function') {
+      callback();
+    }
   }, 300);
 }
 
