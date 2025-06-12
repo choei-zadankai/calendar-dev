@@ -140,28 +140,46 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+
 function openModal() {
+  console.log('[DEBUG] openModal before scrollY:', window.scrollY);
   scrollY = window.scrollY;
-  document.body.style.top = `-${scrollY}px`;
-  document.body.classList.add('modal-open');
+  console.log('[DEBUG] openModal after setting scrollY var:', scrollY);
+  // スクロールバー幅を算出
+  const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+  if (scrollBarWidth > 0) {
+    document.body.style.paddingRight = `${scrollBarWidth}px`;
+  }
+
+  document.documentElement.classList.add('modal-open');
+  document.body.style.overflow = 'hidden';
+  document.body.style.position = 'relative';
 
   modal.classList.remove('event-animate-out');
-  modalBackdrop.style.display = "block";
   modal.style.display = "block";
+  modalBackdrop.style.display = "block";
   modal.classList.add('event-animate-in');
 }
 
 function closeModal() {
+  console.log('[DEBUG] closeModal start scrollY:', window.scrollY);
   modal.classList.remove('event-animate-in');
   modal.classList.add('event-animate-out');
 
+  
   setTimeout(() => {
-    document.body.classList.remove('modal-open');
-    document.body.style.top = '';
-    window.scrollTo(0, scrollY);
+    console.log('[DEBUG] closeModal setTimeout before cleanup scrollY:', window.scrollY);
     modal.style.display = "none";
     modalBackdrop.style.display = "none";
-  }, 300); // アニメーションと一致
+    document.body.classList.remove('modal-open');
+    
+    // スクロール・レイアウト修復
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.paddingRight = ''; // ← ← ← 忘れずに戻す！
+    console.log('[DEBUG] closeModal end scrollY:', window.scrollY);
+
+  }, 300);
 }
 
 function getDynamicHolidays(year) {
@@ -280,6 +298,7 @@ function inRange(event, y, m, d) {
   
 
 function renderCalendar(searchTerm = '', mode = 'title') {
+  console.log('[DEBUG] renderCalendar fired');
   calendarGrid.innerHTML = '';
   if (DEBUG_MODE) {
   console.log('現在のカテゴリ設定:', activeCategories);
@@ -323,11 +342,11 @@ function renderCalendar(searchTerm = '', mode = 'title') {
   }
 
 
- if(DEBUG_MODE){
-    console.log( '----','日付:', year, month + 1, day,
-                'inRangeで通ったイベント:', events.filter(ev => inRange(ev, year, month, day)).map(ev => ev.title)
-      );
- }
+ // if(DEBUG_MODE){
+    // console.log( '----','日付:', year, month + 1, day,
+               // 'inRangeで通ったイベント:', events.filter(ev => inRange(ev, year, month, day)).map(ev => ev.title)
+      // );
+// }
 
     const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
@@ -384,15 +403,15 @@ try {
   const inDate = inRange(ev, year, month, day);
   const match = target.includes(searchTerm);
 
-  if (DEBUG_MODE) {
-    console.log('🔍 チェック中: ', {
-      title: ev.title,
-      date: ev.date,
-      inCat,
-      inDate,
-      match
-    });
-  }
+  //if (DEBUG_MODE) {
+    //console.log('🔍 チェック中: ', {
+      //title: ev.title,
+      //date: ev.date,
+     // inCat,
+     // inDate,
+     // match
+    // });
+ // }
 
   return inDate && match && inCat;
 });

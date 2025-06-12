@@ -414,12 +414,13 @@ button:hover {
 
 body.modal-open {
   overflow: hidden;
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   right: 0;
   width: 100%;
   height: 100%;
+  padding-right: var(--scrollbar-compensation, 0px); /* ← 動的に補正 */
 }
 
 /* 背景: flexboxでセンタリング */
@@ -688,6 +689,10 @@ fieldset {
     width: 90%;
     max-width: 90%;
     padding: 1.5rem 1rem;
+  }
+
+  body.modal-open {
+    padding-right: 0 !important;
   }
 
 }
