@@ -396,7 +396,9 @@ select:focus {
   margin: 1rem;
   max-width: 90vw;
   width: 90%;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 .confirm-modal-content h2 {
