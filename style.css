@@ -356,6 +356,8 @@ select:focus {
   overflow: hidden;
   touch-action: none;
   -ms-touch-action: none;
+  justify-content: center;
+  align-items: center;
 }
 
 #event-modal {
@@ -397,7 +399,6 @@ select:focus {
   max-width: 90vw;
   width: 90%;
   max-height: 80vh;
-  overflow-y: auto;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
