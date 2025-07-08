@@ -393,14 +393,14 @@ function renderCalendar(searchTerm = '', mode = 'title') {
       modalDetail.innerHTML = '<p>この日に表示するイベントはありません</p>';
     } else {
       modalDetail.innerHTML = todaysEvents.map(ev => `
-     <div class="modal-item">
-   　 <strong class="modal-item-title">${ev.title}</strong>
-   　 <div class="modal-item-detail">${ev.detail || '詳細なし'}</div>
-  　  <span class="modal-category-label category-${ev.category}">
-     　　 ${getCategoryLabel(ev.category)}
-   　 </span>
-　 　 </div>
-      `).join('');
+    <div class="modal-item">
+      <strong class="modal-item-title">${ev.title}</strong>
+      <div class="modal-item-detail">${formatEventDetail(ev.detail || '詳細なし')}</div>
+      <span class="modal-category-label category-${ev.category}">
+       ${getCategoryLabel(ev.category)}
+      </span>
+   </div>
+   `).join('');
     }
 
     openModal();
@@ -493,6 +493,14 @@ nextBtn.onclick = () => {
   holidays = getDynamicHolidays(currentDate.getFullYear());
   slideCalendarAndRender('left');
 };
+
+function formatEventDetail(detail) {
+  return detail
+    .replace(/\)、/g, '）<br>') // 全角カッコ+読点
+    .replace(/\),/g, ')<br>') // 半角カッコ+読点
+    .replace(/([!！])(?![\s"』）】〉》>）））]*$)/g, '$1<br>');  
+      // !や！の後ろが末尾じゃなければ改行（末尾・カッコ閉じ・クォート類が続いたら無視）
+}
 
 function getCategoryLabel(cat) {
   const labels = {

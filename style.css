@@ -501,6 +501,8 @@ select:focus {
   font-size: 1rem;
   color: #555;
   margin-top: 0.3rem;
+  white-space: normal;
+  line-height: 1.6;
 }
 
 /* カテゴリラベル（モーダル内） */
